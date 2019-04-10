@@ -1,0 +1,3 @@
+							      |	"This is going to wait for you to enter something"
+---- Completed parsing ----				      |	"Enter a string to see if it detects an error"
+							      |	Line 4: Arg 2 must be integer or float or bool

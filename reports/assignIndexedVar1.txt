@@ -1,0 +1,5 @@
+							      >	( 23   3.14 "Mr. Peanutbutter" "BoJack" )
+
+---- Completed parsing ----					---- Completed parsing ----
+
+							      >	Value of the expression is: ( 23   3.14 "Mr. Peanutbutter" "B
