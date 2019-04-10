@@ -60,7 +60,7 @@ const string ERR_MSG[NUM_ERR_MESSAGES] = {
 };
 
 // constant to suppress token printing
-const bool suppressTokenOutput = true;
+const bool suppressTokenOutput = false;
 
 int line_num = 1;
 int numExprs = 0;
@@ -151,13 +151,8 @@ extern "C"
 N_START         : N_EXPR
                 {
                     printRule("START", "EXPR");
-                    printf("%s","weird");
                     printf("\n---- Completed parsing ----\n");
-                    printValue($1);
-                    printf("%s","weird");
-                    printf("\n Value of the expression is: \n");
-                    printf("%s","weird");
-                    printf("type is %d", $1.type);
+                    printf("\n Value of the expression is: ");
                     printValue($1);
                     return 0;
                 }
@@ -198,7 +193,29 @@ N_EXPR          : N_IF_EXPR
                     $$.numParams = $1.numParams;
                     $$.returnType = $1.returnType;
                     $$.isParam = $1.isParam;
-                    
+                    $$.rlist = new RList;
+                    RList *temp = $1.rlist;
+                    RList *temp_new = $$.rlist;
+                    while(temp!=NULL)
+                    {
+                        
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        
+                        
+
+                        
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }                    
 
                     }
                 | N_ARITHLOGIC_EXPR
@@ -247,7 +264,6 @@ N_EXPR          : N_IF_EXPR
                 {
                     printRule("EXPR", "OUTPUT_EXPR");
                     
-                    printf("%s", "look here!!!!");
                     $$.type = $1.type;
                     $$.numParams = $1.numParams;
                     $$.returnType = $1.returnType;
@@ -273,10 +289,7 @@ N_EXPR          : N_IF_EXPR
                         temp_new->val_float = temp->val_float;
                         strcpy(temp_new->val_string, temp->val_string);
                         temp_new->length = temp->length;
-                        
-                        
-
-                        
+   
                         temp = temp->rlist;
                         if(temp!=NULL)
                             temp_new->rlist = new RList;
@@ -284,7 +297,6 @@ N_EXPR          : N_IF_EXPR
                             temp_new->rlist = NULL;
                         temp_new = temp_new->rlist;
                     }
-                    printf("%s", "good look here!!!!");
                     }
                 | N_INPUT_EXPR
                 {
@@ -399,7 +411,27 @@ N_COMPOUND_EXPR : T_LBRACE N_EXPR N_EXPR_LIST T_RBRACE
                     $$.val_int = $2.val_int;
                     $$.val_float = $2.val_float;
                     strcpy($$.val_string, $2.val_string);
-                    $$.is_null= $2.is_null;
+                    $$.is_null= $2.is_null;                    
+                    $$.rlist = new RList;
+                    RList *temp = $2.rlist;
+                    RList *temp_new = $$.rlist;
+                    while(temp!=NULL)
+                    {
+                        
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+   
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }                    
 			    }
 			    else
 			    {
@@ -411,7 +443,27 @@ N_COMPOUND_EXPR : T_LBRACE N_EXPR N_EXPR_LIST T_RBRACE
                     $$.val_int = $3.val_int;
                     $$.val_float = $3.val_float;
                     strcpy($$.val_string, $3.val_string);
-                    $$.is_null= $3.is_null;
+                    $$.is_null= $3.is_null;                    
+                    $$.rlist = new RList;
+                    RList *temp = $3.rlist;
+                    RList *temp_new = $$.rlist;
+                    while(temp!=NULL)
+                    {
+                        
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+   
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }                    
 			    }
                 }
                 ;
@@ -429,7 +481,30 @@ N_EXPR_LIST     : T_SEMICOLON N_EXPR N_EXPR_LIST
                     $$.val_int = $2.val_int;
                     $$.val_float = $2.val_float;
                     strcpy($$.val_string, $2.val_string);
-                    $$.is_null= $2.is_null;                
+                    $$.is_null= $2.is_null; 
+                    $$.rlist = new RList;
+                    RList *temp = $2.rlist;
+                    RList *temp_new = $$.rlist;
+                    while(temp!=NULL)
+                    {
+                        
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        
+                        
+
+                        
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }                    
 			    }
 			    else
 			    {
@@ -441,7 +516,30 @@ N_EXPR_LIST     : T_SEMICOLON N_EXPR N_EXPR_LIST
                     $$.val_int = $3.val_int;
                     $$.val_float = $3.val_float;
                     strcpy($$.val_string, $3.val_string);
-                    $$.is_null= $3.is_null;                
+                    $$.is_null= $3.is_null;      
+                    $$.rlist = new RList;
+                    RList *temp = $3.rlist;
+                    RList *temp_new = $$.rlist;
+                    while(temp!=NULL)
+                    {
+                        
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        
+                        
+
+                        
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }                    
 			    }
                 }
                 | /* epsilon */
@@ -622,7 +720,7 @@ N_CONST_LIST    : N_CONST T_COMMA N_CONST_LIST
                     printRule("CONST_LIST", 
                               "CONST, CONST_LIST");
                     RList *alist = NULL;
-                    alist = (RList*)malloc(sizeof(RList));
+                    alist = new RList;
                     alist->type = $1.type;
                     alist->val_bool = $1.val_bool;
                     alist->val_int = $1.val_int;
@@ -631,12 +729,11 @@ N_CONST_LIST    : N_CONST T_COMMA N_CONST_LIST
                     alist->rlist = $3.rlist;
                     alist->length = $3.rlist->length+1;
                     $$.rlist = alist;
-                    //printf("%d\n", $$.rlist->val_int);
                 }
                 | N_CONST
                 {
                     RList *alist = NULL;
-                    alist = (RList*)malloc(sizeof(RList));
+                    alist = new RList;
 
                     alist->type = $1.type;
                     alist->val_bool = $1.val_bool;
@@ -681,7 +778,6 @@ N_ASSIGNMENT_EXPR : T_IDENT N_INDEX
 			   {
                      // set flag that ident already existed
 				$<flag>$ = true;
-                printf("%s %d", "I got the type info ", exprTypeInfo.rlist->length);
                     }
                 }
                 T_ASSIGN N_EXPR
@@ -736,8 +832,6 @@ N_ASSIGNMENT_EXPR : T_IDENT N_INDEX
                   }
                   else
                   {
-                        printf("index is %d ", $2.val_int);
-                        printf("index is %d, length of list: %d", $2.val_int, exprTypeInfo.rlist->length);
                         if($2.val_int<1 || $2.val_int>exprTypeInfo.rlist->length)
                         {
                             yyerror("Subscript out of bounds");
@@ -830,16 +924,14 @@ N_ASSIGNMENT_EXPR : T_IDENT N_INDEX
                                 temp_new->rlist = NULL;
                             temp_new = temp_new->rlist;
                         }
-                        
+                        /*
                         temp = type_info.rlist;
                         while(temp!=NULL){
                             printf("result list length: %d\n", temp->length);
                             temp = temp->rlist;
-                        }
+                        }*/
                         
 
-                        printf("given list length: %d\n", $5.rlist->length);
-                        printf("result list length: %d\n", type_info.rlist->length);
                       
                       
                       scopeStack.top().changeEntry(
@@ -1647,7 +1739,6 @@ N_ENTIRE_VAR    : T_IDENT
                         temp_new = temp_new->rlist;
                     }
                     
-                    printf("the length at entire var is %d\n", exprTypeInfo.rlist->length);
                 }
                 ;
 
@@ -1785,7 +1876,7 @@ void printValue(TYPE_INFO type_info)
         }else if(type_info.type == LIST){
             printf("%s","(");
             RList *temp = type_info.rlist;
-            do
+            while(temp != NULL)
             {
                     if(temp->type == INT)
                     {
@@ -1804,7 +1895,7 @@ void printValue(TYPE_INFO type_info)
                         printf(" %s", "NULL");
                     }
                     temp = temp->rlist;
-            }while(temp != NULL);
+            };
             printf("%s"," )");
         }
 }
