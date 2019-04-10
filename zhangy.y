@@ -193,6 +193,11 @@ N_EXPR          : N_IF_EXPR
                     $$.numParams = $1.numParams;
                     $$.returnType = $1.returnType;
                     $$.isParam = $1.isParam;
+                    $$.val_bool = $1.val_bool;
+                    $$.val_int = $1.val_int;
+                    $$.val_float = $1.val_float;
+                    strcpy($$.val_string, $1.val_string);
+                    $$.is_null= $1.is_null;                        
                     $$.rlist = new RList;
                     RList *temp = $1.rlist;
                     RList *temp_new = $$.rlist;
@@ -225,7 +230,11 @@ N_EXPR          : N_IF_EXPR
                     $$.numParams = $1.numParams;
                     $$.returnType = $1.returnType;
                     $$.isParam = $1.isParam;
-                    
+                    $$.val_bool = $1.val_bool;
+                    $$.val_int = $1.val_int;
+                    $$.val_float = $1.val_float;
+                    strcpy($$.val_string, $1.val_string);
+                    $$.is_null= $1.is_null;                        
 
                     }
                 | N_ASSIGNMENT_EXPR
@@ -235,6 +244,11 @@ N_EXPR          : N_IF_EXPR
                     $$.numParams = $1.numParams;
                     $$.returnType = $1.returnType;
                     $$.isParam = $1.isParam;
+                    $$.val_bool = $1.val_bool;
+                    $$.val_int = $1.val_int;
+                    $$.val_float = $1.val_float;
+                    strcpy($$.val_string, $1.val_string);
+                    $$.is_null= $1.is_null;                        
                     $$.rlist = new RList;
                     RList *temp = $1.rlist;
                     RList *temp_new = $$.rlist;
@@ -1067,11 +1081,33 @@ N_OUTPUT_EXPR   : T_PRINT T_LPAREN N_EXPR T_RPAREN
 N_INPUT_EXPR    : T_READ T_LPAREN T_RPAREN
                 {
                     printRule("INPUT_EXPR", "READ ( )");
-                    $$.type = INT_OR_STR_OR_FLOAT;
+                    string buffer;
+                    getline(std::cin, buffer);
+                    if(buffer[0]=='+' || buffer[0]=='-' || isdigit(buffer[0]))
+                    {
+                        $$.type = INT;
+                        $$.val_int = stoi(buffer);
+                        for(int i=1;i<buffer.length();i++)
+                        {
+                            if(buffer[i] == '.')
+                            {
+                                $$.type = FLOAT;
+                                $$.val_float = stof(buffer);
+                                break;
+                            }
+                        }
+                        
+                        
+                    }else{
+                        $$.type = STR;
+                        strcpy($$.val_string, buffer.c_str());
+                    }
+                    printf("%d %f %s", $$.val_int, $$.val_float, $$.val_string);
                     $$.numParams = NOT_APPLICABLE;
                     $$.returnType = NOT_APPLICABLE;
                     $$.isParam = false;
-                }
+
+                    }
                 ;
 
 N_FUNCTION_DEF  : T_FUNCTION
@@ -1232,24 +1268,7 @@ N_ARITHLOGIC_EXPR : N_SIMPLE_ARITHLOGIC
                     $$.is_null= $1.is_null;
                     
                     
-                    $$.rlist = new RList;
-                    RList *temp = $1.rlist;
-                    RList *temp_new = $$.rlist;
-                    while(temp!=NULL)
-                    {   
-                        temp_new->type = temp->type;
-                        temp_new->val_bool = temp->val_bool;
-                        temp_new->val_int = temp->val_int;
-                        temp_new->val_float = temp->val_float;
-                        strcpy(temp_new->val_string, temp->val_string);
-                        temp_new->length = temp->length;
-                        temp = temp->rlist;
-                        if(temp!=NULL)
-                            temp_new->rlist = new RList;
-                        else
-                            temp_new->rlist = NULL;
-                        temp_new = temp_new->rlist;
-                    }
+
                 }
                 | N_SIMPLE_ARITHLOGIC N_REL_OP
                   N_SIMPLE_ARITHLOGIC
@@ -1267,6 +1286,11 @@ N_ARITHLOGIC_EXPR : N_SIMPLE_ARITHLOGIC
                     $$.numParams = NOT_APPLICABLE;
                     $$.returnType = NOT_APPLICABLE;
                     $$.isParam = false;
+                    $$.val_bool = $1.val_bool;
+                    $$.val_int = $1.val_int;
+                    $$.val_float = $1.val_float;
+                    strcpy($$.val_string, $1.val_string);
+                    $$.is_null= $1.is_null;                    
                 }
                 ;
 
@@ -1672,6 +1696,10 @@ N_VAR           : N_ENTIRE_VAR
                     $$.numParams = $1.numParams;
                     $$.returnType = $1.returnType;
                     $$.isParam = $1.isParam;
+                    $$.val_bool = $1.val_bool;
+                    $$.val_int = $1.val_int;
+                    $$.val_float = $1.val_float;
+                    strcpy($$.val_string, $1.val_string);                    
                 }
                 | N_SINGLE_ELEMENT
                 {
@@ -1680,6 +1708,10 @@ N_VAR           : N_ENTIRE_VAR
                     $$.numParams = $1.numParams;
                     $$.returnType = $1.returnType;
                     $$.isParam = $1.isParam;
+                    $$.val_bool = $1.val_bool;
+                    $$.val_int = $1.val_int;
+                    $$.val_float = $1.val_float;
+                    strcpy($$.val_string, $1.val_string);                    
                 }
                 ;
 
@@ -1693,8 +1725,27 @@ N_SINGLE_ELEMENT : T_IDENT T_LBRACKET T_LBRACKET N_EXPR
                     if(exprTypeInfo.type == UNDEFINED) 
 				semanticError(0, ERR_UNDEFINED_IDENT);
                     if(!isListCompatible(exprTypeInfo.type)) 
-				semanticError(1, ERR_MUST_BE_LIST);  
-                    $$.type = INT_OR_STR_OR_FLOAT_OR_BOOL;
+				semanticError(1, ERR_MUST_BE_LIST);
+
+                    if($4.val_int<1 || $4.val_int>exprTypeInfo.rlist->length)
+                        {
+                            yyerror("Subscript out of bounds");
+                        }
+                        
+                    int count = $4.val_int;
+                    RList* node = exprTypeInfo.rlist;
+                    while(count > 1)
+                    {
+                        node = node->rlist;
+                        count -= 1;
+                    }
+                    $$.type = node->type;
+                    $$.val_bool = node->val_bool;
+                    $$.val_int = node->val_int;
+                    $$.val_float = node->val_float;
+                    strcpy($$.val_string, node->val_string);
+
+                    
                     $$.numParams = NOT_APPLICABLE;
                     $$.returnType = NOT_APPLICABLE;
                     $$.isParam = false;
