@@ -73,7 +73,8 @@ struct RList {
     int val_int; 
     float val_float; 
     bool val_bool;    
-    char val_string[256];  
+    char val_string[256]; 
+    int length;    
     RList* rlist;
 };
 
@@ -89,6 +90,7 @@ typedef struct {
   char val_string[256];  
   bool is_null; 
   RList* rlist;
+  bool isIndex;
 } TYPE_INFO;
 
 
@@ -123,6 +125,35 @@ public:
     typeInfo.numParams = theType.numParams;
     typeInfo.returnType = theType.returnType;
     typeInfo.isParam = theType.isParam;
+    typeInfo.val_int = theType.val_int;
+    typeInfo.val_float = theType.val_float;
+    typeInfo.val_bool = theType.val_bool;
+    strcpy(typeInfo.val_string, theType.val_string);
+    typeInfo.is_null = theType.is_null;
+    
+    typeInfo.rlist = new RList;
+    RList *temp = theType.rlist;
+    RList *temp_new = typeInfo.rlist;
+    while(temp!=NULL)
+    {
+        
+        temp_new->type = temp->type;
+        temp_new->val_bool = temp->val_bool;
+        temp_new->val_int = temp->val_int;
+        temp_new->val_float = temp->val_float;
+        strcpy(temp_new->val_string, temp->val_string);
+        temp_new->length = temp->length;
+        
+        
+
+        
+        temp = temp->rlist;
+        if(temp!=NULL)
+            temp_new->rlist = new RList;
+        else
+            temp_new->rlist = NULL;
+        temp_new = temp_new->rlist;
+    }
   }
 
   // Accessors

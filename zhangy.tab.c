@@ -76,8 +76,7 @@ using namespace std;
 #define ARITHMETIC_OP   1
 #define LOGICAL_OP      2
 #define RELATIONAL_OP   3
-#define INDEX_PROD      4
-#define NOT_INDEX_PROD  5
+
 
 #define ERR_CANNOT_BE_FUNCT_NULL_LIST_OR_STR	0
 #define ERR_CANNOT_BE_FUNCT					1 
@@ -157,7 +156,7 @@ extern "C"
 }
 
 
-#line 161 "zhangy.tab.c" /* yacc.c:339  */
+#line 160 "zhangy.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -241,14 +240,14 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 106 "zhangy.y" /* yacc.c:355  */
+#line 105 "zhangy.y" /* yacc.c:355  */
 
     char* text;
     int num;
     bool flag;
     TYPE_INFO typeInfo;
 
-#line 252 "zhangy.tab.c" /* yacc.c:355  */
+#line 251 "zhangy.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -265,7 +264,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 269 "zhangy.tab.c" /* yacc.c:358  */
+#line 268 "zhangy.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -567,15 +566,15 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   152,   152,   162,   171,   181,   191,   201,   211,   221,
-     231,   241,   250,   260,   270,   283,   292,   301,   310,   319,
-     330,   361,   390,   400,   420,   452,   470,   482,   481,   502,
-     529,   501,   542,   562,   577,   595,   594,   661,   668,   674,
-     685,   698,   713,   724,   731,   723,   746,   750,   757,   762,
-     781,   801,   822,   828,   837,   842,   852,   851,   865,   874,
-     893,   929,   956,   965,  1001,  1030,  1039,  1047,  1055,  1063,
-    1073,  1078,  1083,  1090,  1095,  1100,  1105,  1110,  1117,  1122,
-    1127,  1132,  1137,  1142,  1149,  1157,  1167,  1185
+       0,   151,   151,   165,   174,   184,   194,   204,   214,   246,
+     289,   299,   308,   318,   328,   341,   350,   359,   368,   377,
+     388,   419,   448,   458,   478,   510,   528,   540,   539,   560,
+     587,   559,   600,   620,   636,   655,   654,   884,   894,   900,
+     911,   959,   975,   986,   993,   985,  1008,  1012,  1019,  1024,
+    1043,  1063,  1084,  1090,  1099,  1104,  1114,  1113,  1127,  1162,
+    1181,  1243,  1301,  1310,  1372,  1431,  1440,  1474,  1482,  1490,
+    1500,  1505,  1510,  1517,  1522,  1527,  1532,  1537,  1544,  1549,
+    1554,  1559,  1564,  1569,  1576,  1584,  1594,  1612
 };
 #endif
 
@@ -1453,20 +1452,24 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 153 "zhangy.y" /* yacc.c:1646  */
+#line 152 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("START", "EXPR");
-                    printf("\n---- Completed parsing ----\n\n");
-                    printf("\nValue of the expression is: ");
-                    //printf("type is %d", $1.type);
+                    printf("%s","weird");
+                    printf("\n---- Completed parsing ----\n");
+                    printValue((yyvsp[0].typeInfo));
+                    printf("%s","weird");
+                    printf("\n Value of the expression is: \n");
+                    printf("%s","weird");
+                    printf("type is %d", (yyvsp[0].typeInfo).type);
                     printValue((yyvsp[0].typeInfo));
                     return 0;
                 }
-#line 1466 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1469 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 163 "zhangy.y" /* yacc.c:1646  */
+#line 166 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR", "IF_EXPR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -1475,11 +1478,11 @@ yyreduce:
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
                     
                 }
-#line 1479 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1482 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 172 "zhangy.y" /* yacc.c:1646  */
+#line 175 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR", "WHILE_EXPR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -1489,11 +1492,11 @@ yyreduce:
                     
                     
                 }
-#line 1493 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1496 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 182 "zhangy.y" /* yacc.c:1646  */
+#line 185 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR", "FOR_EXPR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -1503,11 +1506,11 @@ yyreduce:
                     
 
                     }
-#line 1507 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1510 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 192 "zhangy.y" /* yacc.c:1646  */
+#line 195 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR", "COMPOUND_EXPR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -1517,11 +1520,11 @@ yyreduce:
                     
 
                     }
-#line 1521 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1524 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 202 "zhangy.y" /* yacc.c:1646  */
+#line 205 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR", "ARITHLOGIC_EXPR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -1531,39 +1534,94 @@ yyreduce:
                     
 
                     }
-#line 1535 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1538 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 212 "zhangy.y" /* yacc.c:1646  */
+#line 215 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR", "ASSIGNMENT_EXPR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
                     (yyval.typeInfo).numParams = (yyvsp[0].typeInfo).numParams;
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
-                    
+                    (yyval.typeInfo).rlist = new RList;
+                    RList *temp = (yyvsp[0].typeInfo).rlist;
+                    RList *temp_new = (yyval.typeInfo).rlist;
+                    while(temp!=NULL)
+                    {
+                        
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        
+                        
+
+                        
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }                    
 
                     }
-#line 1549 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1574 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 222 "zhangy.y" /* yacc.c:1646  */
+#line 247 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR", "OUTPUT_EXPR");
+                    
+                    printf("%s", "look here!!!!");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
                     (yyval.typeInfo).numParams = (yyvsp[0].typeInfo).numParams;
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
-                    
+                    (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
+                    (yyval.typeInfo).numParams = (yyvsp[0].typeInfo).numParams;
+                    (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
+                    (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
+                    (yyval.typeInfo).val_bool = (yyvsp[0].typeInfo).val_bool;
+                    (yyval.typeInfo).val_int = (yyvsp[0].typeInfo).val_int;
+                    (yyval.typeInfo).val_float = (yyvsp[0].typeInfo).val_float;
+                    strcpy((yyval.typeInfo).val_string, (yyvsp[0].typeInfo).val_string);
+                    (yyval.typeInfo).is_null= (yyvsp[0].typeInfo).is_null;                    
+                    (yyval.typeInfo).rlist = new RList;
+                    RList *temp = (yyvsp[0].typeInfo).rlist;
+                    RList *temp_new = (yyval.typeInfo).rlist;
+                    while(temp!=NULL)
+                    {
+                        
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        
+                        
 
+                        
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
                     }
-#line 1563 "zhangy.tab.c" /* yacc.c:1646  */
+                    printf("%s", "good look here!!!!");
+                    }
+#line 1621 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 232 "zhangy.y" /* yacc.c:1646  */
+#line 290 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR", "INPUT_EXPR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -1573,11 +1631,11 @@ yyreduce:
                     
  
                 }
-#line 1577 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1635 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 242 "zhangy.y" /* yacc.c:1646  */
+#line 300 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR", "LIST_EXPR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -1586,11 +1644,11 @@ yyreduce:
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
                     
                     }
-#line 1590 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1648 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 251 "zhangy.y" /* yacc.c:1646  */
+#line 309 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR", "FUNCTION_DEF");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -1600,11 +1658,11 @@ yyreduce:
                     
 
                     }
-#line 1604 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1662 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 261 "zhangy.y" /* yacc.c:1646  */
+#line 319 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR", "FUNCTION_CALL");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -1614,11 +1672,11 @@ yyreduce:
                     
 
                     }
-#line 1618 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1676 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 271 "zhangy.y" /* yacc.c:1646  */
+#line 329 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR", "QUIT_EXPR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -1629,11 +1687,11 @@ yyreduce:
 
                     exit(1);
                 }
-#line 1633 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1691 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 284 "zhangy.y" /* yacc.c:1646  */
+#line 342 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("CONST", "INTCONST");
                     (yyval.typeInfo).type = INT;
@@ -1642,11 +1700,11 @@ yyreduce:
                     (yyval.typeInfo).isParam = false;
                     (yyval.typeInfo).val_int = atoi((yyvsp[0].text));
                 }
-#line 1646 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1704 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 293 "zhangy.y" /* yacc.c:1646  */
+#line 351 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("CONST", "STRCONST");
                     (yyval.typeInfo).type = STR;
@@ -1655,11 +1713,11 @@ yyreduce:
                     (yyval.typeInfo).isParam = false;
                     strcpy((yyval.typeInfo).val_string, (yyvsp[0].text));
                 }
-#line 1659 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1717 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 302 "zhangy.y" /* yacc.c:1646  */
+#line 360 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("CONST", "FLOATCONST");
                     (yyval.typeInfo).type = FLOAT;
@@ -1668,11 +1726,11 @@ yyreduce:
                     (yyval.typeInfo).isParam = false;
                     (yyval.typeInfo).val_float = atof((yyvsp[0].text));
                 }
-#line 1672 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1730 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 311 "zhangy.y" /* yacc.c:1646  */
+#line 369 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("CONST", "TRUE");
                     (yyval.typeInfo).type = BOOL;
@@ -1681,11 +1739,11 @@ yyreduce:
                     (yyval.typeInfo).isParam = false;
                     (yyval.typeInfo).val_bool = true;
                 }
-#line 1685 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1743 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 320 "zhangy.y" /* yacc.c:1646  */
+#line 378 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("CONST", "FALSE");
                     (yyval.typeInfo).type = BOOL;
@@ -1694,11 +1752,11 @@ yyreduce:
                     (yyval.typeInfo).isParam = false;
                     (yyval.typeInfo).val_bool = false;
                 }
-#line 1698 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1756 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 331 "zhangy.y" /* yacc.c:1646  */
+#line 389 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("COMPOUND_EXPR",
                               "{ EXPR EXPR_LIST }");
@@ -1727,11 +1785,11 @@ yyreduce:
                     (yyval.typeInfo).is_null= (yyvsp[-1].typeInfo).is_null;
 			    }
                 }
-#line 1731 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1789 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 362 "zhangy.y" /* yacc.c:1646  */
+#line 420 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR_LIST", "; EXPR EXPR_LIST");
 			    if ((yyvsp[0].typeInfo).type == NOT_APPLICABLE)
@@ -1759,11 +1817,11 @@ yyreduce:
                     (yyval.typeInfo).is_null= (yyvsp[0].typeInfo).is_null;                
 			    }
                 }
-#line 1763 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1821 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 390 "zhangy.y" /* yacc.c:1646  */
+#line 448 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("EXPR_LIST", "epsilon");
                     (yyval.typeInfo).type = NOT_APPLICABLE;
@@ -1772,11 +1830,11 @@ yyreduce:
                     (yyval.typeInfo).isParam = false;
                     (yyval.typeInfo).is_null = true;
                 }
-#line 1776 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1834 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 401 "zhangy.y" /* yacc.c:1646  */
+#line 459 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("IF_EXPR", "IF ( EXPR ) EXPR");
                     
@@ -1796,11 +1854,11 @@ yyreduce:
                         (yyval.typeInfo).is_null = true;
                     }
 			}
-#line 1800 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1858 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 421 "zhangy.y" /* yacc.c:1646  */
+#line 479 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("IF_EXPR", 
                               "IF ( EXPR ) EXPR ELSE EXPR");
@@ -1830,11 +1888,11 @@ yyreduce:
                     
                     }
                 }
-#line 1834 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1892 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 453 "zhangy.y" /* yacc.c:1646  */
+#line 511 "zhangy.y" /* yacc.c:1646  */
     {
                     if(((yyvsp[0].typeInfo).type == FUNCTION) 
                        || ((yyvsp[0].typeInfo).type == LIST)
@@ -1850,11 +1908,11 @@ yyreduce:
                     strcpy((yyval.typeInfo).val_string, (yyvsp[0].typeInfo).val_string);
                     (yyval.typeInfo).is_null= (yyvsp[0].typeInfo).is_null;                      
 			}
-#line 1854 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1912 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 471 "zhangy.y" /* yacc.c:1646  */
+#line 529 "zhangy.y" /* yacc.c:1646  */
     {
                     if((yyvsp[0].typeInfo).type == FUNCTION)
                      semanticError(2, ERR_CANNOT_BE_FUNCT);
@@ -1863,11 +1921,11 @@ yyreduce:
                     (yyval.typeInfo).returnType = NOT_APPLICABLE;
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
 			}
-#line 1867 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1925 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 482 "zhangy.y" /* yacc.c:1646  */
+#line 540 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("WHILE_EXPR",
                               "WHILE ( EXPR ) EXPR");
@@ -1878,22 +1936,22 @@ yyreduce:
                      semanticError(1,
                        ERR_CANNOT_BE_FUNCT_NULL_LIST_OR_STR);
                 }
-#line 1882 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1940 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 493 "zhangy.y" /* yacc.c:1646  */
+#line 551 "zhangy.y" /* yacc.c:1646  */
     {
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
                     (yyval.typeInfo).numParams = (yyvsp[0].typeInfo).numParams;
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
                 }
-#line 1893 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1951 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 502 "zhangy.y" /* yacc.c:1646  */
+#line 560 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FOR_EXPR", 
                               "FOR ( IDENT IN EXPR ) EXPR");
@@ -1920,31 +1978,31 @@ yyreduce:
  				 ERR_CANNOT_BE_FUNCT_OR_NULL_OR_LIST);
 			   }
                 }
-#line 1924 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1982 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 529 "zhangy.y" /* yacc.c:1646  */
+#line 587 "zhangy.y" /* yacc.c:1646  */
     {
                     if((yyvsp[0].typeInfo).type != LIST) 
 				semanticError(2, ERR_MUST_BE_LIST);
 			}
-#line 1933 "zhangy.tab.c" /* yacc.c:1646  */
+#line 1991 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 534 "zhangy.y" /* yacc.c:1646  */
+#line 592 "zhangy.y" /* yacc.c:1646  */
     {
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
                     (yyval.typeInfo).numParams = (yyvsp[0].typeInfo).numParams;
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
 			}
-#line 1944 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2002 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 543 "zhangy.y" /* yacc.c:1646  */
+#line 601 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("LIST_EXPR", 
                               "LIST ( CONST_LIST )");
@@ -1962,11 +2020,11 @@ yyreduce:
                         temp = temp->rlist;
                     }*/
                 }
-#line 1966 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2024 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 563 "zhangy.y" /* yacc.c:1646  */
+#line 621 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("CONST_LIST", 
                               "CONST, CONST_LIST");
@@ -1978,14 +2036,15 @@ yyreduce:
                     alist->val_float = (yyvsp[-2].typeInfo).val_float;
                     strcpy(alist->val_string, (yyvsp[-2].typeInfo).val_string);
                     alist->rlist = (yyvsp[0].typeInfo).rlist;
+                    alist->length = (yyvsp[0].typeInfo).rlist->length+1;
                     (yyval.typeInfo).rlist = alist;
                     //printf("%d\n", $$.rlist->val_int);
                 }
-#line 1985 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2044 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 578 "zhangy.y" /* yacc.c:1646  */
+#line 637 "zhangy.y" /* yacc.c:1646  */
     {
                     RList *alist = NULL;
                     alist = (RList*)malloc(sizeof(RList));
@@ -1996,23 +2055,27 @@ yyreduce:
                     alist->val_float = (yyvsp[0].typeInfo).val_float;
                     strcpy(alist->val_string, (yyvsp[0].typeInfo).val_string);
                     alist->rlist = NULL;
+                    alist->length = 1;
                     (yyval.typeInfo).rlist = alist;
                     
                     printRule("CONST_LIST", "CONST");
                 }
-#line 2004 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2064 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 595 "zhangy.y" /* yacc.c:1646  */
+#line 655 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ASSIGNMENT_EXPR", 
                               "IDENT INDEX ASSIGN EXPR");
                     string lexeme = string((yyvsp[-1].text));
                     TYPE_INFO exprTypeInfo =
                         scopeStack.top().findEntry(lexeme);
+                        
+                        
+                        
                     if(exprTypeInfo.type == UNDEFINED) 
-			   {
+                    {
                       if(!suppressTokenOutput)
                         printf("___Adding %s to symbol table\n", 
                                (yyvsp[-1].text));
@@ -2024,78 +2087,241 @@ yyreduce:
                             {NOT_APPLICABLE, NOT_APPLICABLE,
                              NOT_APPLICABLE, false}));
                       // set flag that ident didn't already 
-				// exist
-			     (yyval.flag) = false;
+                        // exist
+                         (yyval.flag) = false;
                     }
                     else 
 			   {
                      // set flag that ident already existed
 				(yyval.flag) = true;
+                printf("%s %d", "I got the type info ", exprTypeInfo.rlist->length);
                     }
                 }
-#line 2037 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2101 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 624 "zhangy.y" /* yacc.c:1646  */
+#line 688 "zhangy.y" /* yacc.c:1646  */
     {
                     string lexeme = string((yyvsp[-4].text));
                     TYPE_INFO exprTypeInfo = 
                         scopeStack.top().findEntry(lexeme);
-                    if(((yyvsp[-3].num) == INDEX_PROD) &&
+                    if(((yyvsp[-3].typeInfo).isIndex) &&
 				 (!isListCompatible( 
                           exprTypeInfo.type))) 
 				semanticError(1, ERR_MUST_BE_LIST);
 			    if ((yyvsp[-2].flag))  // ident already existed 
                     {
-				if (exprTypeInfo.isParam &&
-				    !isIntCompatible((yyvsp[0].typeInfo).type))
-				  semanticError(1, ERR_MUST_BE_INTEGER);
-                      scopeStack.top().changeEntry(
-                         SYMBOL_TABLE_ENTRY(lexeme,
-                           {(yyvsp[0].typeInfo).type, (yyvsp[0].typeInfo).numParams,
-                            (yyvsp[0].typeInfo).returnType, false}));
+				if (exprTypeInfo.isParam && !isIntCompatible((yyvsp[0].typeInfo).type))
+                     semanticError(1, ERR_MUST_BE_INTEGER);
+                  
+                  if(!(yyvsp[-3].typeInfo).isIndex)
+                  {
+                    TYPE_INFO type_info;
+                    type_info.type = (yyvsp[0].typeInfo).type;
+                    type_info.numParams = (yyvsp[0].typeInfo).numParams;
+                    type_info.returnType = (yyvsp[0].typeInfo).returnType;
+                    type_info.isParam = (yyvsp[0].typeInfo).isParam;
+                    type_info.val_bool = (yyvsp[0].typeInfo).val_bool;
+                    type_info.val_int = (yyvsp[0].typeInfo).val_int;
+                    type_info.val_float = (yyvsp[0].typeInfo).val_float;
+                    strcpy(type_info.val_string, (yyvsp[0].typeInfo).val_string);
+                    type_info.is_null= (yyvsp[0].typeInfo).is_null;
+                    
+                    type_info.rlist = new RList;
+                    RList *temp = (yyvsp[0].typeInfo).rlist;
+                    RList *temp_new = type_info.rlist;
+                    while(temp!=NULL)
+                    {   
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
                     }
-                    else 
-			    {
+                    
+                    scopeStack.top().changeEntry(
+                         SYMBOL_TABLE_ENTRY(lexeme,
+                           type_info));
+                  }
+                  else
+                  {
+                        printf("index is %d ", (yyvsp[-3].typeInfo).val_int);
+                        printf("index is %d, length of list: %d", (yyvsp[-3].typeInfo).val_int, exprTypeInfo.rlist->length);
+                        if((yyvsp[-3].typeInfo).val_int<1 || (yyvsp[-3].typeInfo).val_int>exprTypeInfo.rlist->length)
+                        {
+                            yyerror("Subscript out of bounds");
+                        }
+                        
+                    printValue(exprTypeInfo);
+                    
+                    TYPE_INFO type_info;
+                    type_info.type = exprTypeInfo.type;
+                    type_info.numParams = exprTypeInfo.numParams;
+                    type_info.returnType = exprTypeInfo.returnType;
+                    type_info.isParam = exprTypeInfo.isParam;
+                    type_info.val_bool = exprTypeInfo.val_bool;
+                    type_info.val_int = exprTypeInfo.val_int;
+                    type_info.val_float = exprTypeInfo.val_float;
+                    strcpy(type_info.val_string, exprTypeInfo.val_string);
+                    type_info.is_null= exprTypeInfo.is_null;
+                    
+                    type_info.rlist = new RList;
+                    RList *temp = exprTypeInfo.rlist;
+                    RList *temp_new = type_info.rlist;
+                    while(temp!=NULL)
+                    {   
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }       
+
+                    int count = (yyvsp[-3].typeInfo).val_int;
+                    RList* node = type_info.rlist;
+                    while(count > 1)
+                    {
+                        node = node->rlist;
+                        count -= 1;
+                    }
+                    node->type = (yyvsp[0].typeInfo).type;
+                    node->val_bool = (yyvsp[0].typeInfo).val_bool;
+                    node->val_int = (yyvsp[0].typeInfo).val_int;
+                    node->val_float = (yyvsp[0].typeInfo).val_float;
+                    strcpy(node->val_string, (yyvsp[0].typeInfo).val_string);
+                    scopeStack.top().changeEntry(
+                         SYMBOL_TABLE_ENTRY(lexeme,
+                           type_info));
+                    exprTypeInfo = 
+                        scopeStack.top().findEntry(lexeme);
+                    printValue(exprTypeInfo);
+                  }
+                      
+                    
+                }
+                else 
+                {
                       // if ident didn't already exist, 
                       // just change the type
+                        TYPE_INFO type_info;
+                        type_info.type = (yyvsp[0].typeInfo).type;
+                        type_info.numParams = (yyvsp[0].typeInfo).numParams;
+                        type_info.returnType = (yyvsp[0].typeInfo).returnType;
+                        type_info.isParam = (yyvsp[0].typeInfo).isParam;
+                        type_info.val_bool = (yyvsp[0].typeInfo).val_bool;
+                        type_info.val_int = (yyvsp[0].typeInfo).val_int;
+                        type_info.val_float = (yyvsp[0].typeInfo).val_float;
+                        strcpy(type_info.val_string, (yyvsp[0].typeInfo).val_string);
+                        type_info.is_null= (yyvsp[0].typeInfo).is_null;
+                        
+                        type_info.rlist = new RList;
+                        RList *temp = (yyvsp[0].typeInfo).rlist;
+                        RList *temp_new = type_info.rlist;
+                        while(temp!=NULL)
+                        {   
+                            temp_new->type = temp->type;
+                            temp_new->val_bool = temp->val_bool;
+                            temp_new->val_int = temp->val_int;
+                            temp_new->val_float = temp->val_float;
+                            strcpy(temp_new->val_string, temp->val_string);
+                            temp_new->length = temp->length;
+                            temp = temp->rlist;
+                            if(temp!=NULL)
+                                temp_new->rlist = new RList;
+                            else
+                                temp_new->rlist = NULL;
+                            temp_new = temp_new->rlist;
+                        }
+                        
+                        temp = type_info.rlist;
+                        while(temp!=NULL){
+                            printf("result list length: %d\n", temp->length);
+                            temp = temp->rlist;
+                        }
+                        
+
+                        printf("given list length: %d\n", (yyvsp[0].typeInfo).rlist->length);
+                        printf("result list length: %d\n", type_info.rlist->length);
+                      
+                      
                       scopeStack.top().changeEntry(
                             SYMBOL_TABLE_ENTRY(lexeme,
-                            {(yyvsp[0].typeInfo).type, (yyvsp[0].typeInfo).numParams,
-                             (yyvsp[0].typeInfo).returnType, false}));
+                            type_info));
                     }
-			    if (((yyvsp[-3].num) == INDEX_PROD) && 
+			    if (((yyvsp[-3].typeInfo).isIndex) && 
 			        ((yyvsp[0].typeInfo).type == LIST))
 				semanticError(1, ERR_CANNOT_BE_LIST);
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
                     (yyval.typeInfo).numParams = (yyvsp[0].typeInfo).numParams;
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
+                    (yyval.typeInfo).val_bool = (yyvsp[0].typeInfo).val_bool;
+                    (yyval.typeInfo).val_int = (yyvsp[0].typeInfo).val_int;
+                    (yyval.typeInfo).val_float = (yyvsp[0].typeInfo).val_float;
+                    strcpy((yyval.typeInfo).val_string, (yyvsp[0].typeInfo).val_string);
+                    (yyval.typeInfo).is_null= (yyvsp[0].typeInfo).is_null;
+                    
+                    
+                    (yyval.typeInfo).rlist = new RList;
+                    RList *temp = (yyvsp[0].typeInfo).rlist;
+                    RList *temp_new = (yyval.typeInfo).rlist;
+                    while(temp!=NULL)
+                    {   
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }                    
                 }
-#line 2077 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2300 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 663 "zhangy.y" /* yacc.c:1646  */
+#line 886 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("INDEX", " [[ EXPR ]]");
-                    (yyval.num) = INDEX_PROD;
+                    (yyval.typeInfo).isIndex = true;
+                    (yyval.typeInfo).type = INT;
+                    (yyval.typeInfo).val_int = (yyvsp[-2].typeInfo).val_int;
+                    
 			}
-#line 2086 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2312 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 668 "zhangy.y" /* yacc.c:1646  */
+#line 894 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("INDEX", " epsilon");
-			    (yyval.num) = NOT_INDEX_PROD;
+			    (yyval.typeInfo).isIndex = false;
                 }
-#line 2095 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2321 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 675 "zhangy.y" /* yacc.c:1646  */
+#line 901 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("QUIT_EXPR", "QUIT()");
                     (yyval.typeInfo).type = NULL_TYPE;
@@ -2104,11 +2330,11 @@ yyreduce:
                     (yyval.typeInfo).isParam = false;
                     (yyval.typeInfo).is_null = true;
                 }
-#line 2108 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2334 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 686 "zhangy.y" /* yacc.c:1646  */
+#line 912 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("OUTPUT_EXPR", 
                               "PRINT ( EXPR )");
@@ -2116,16 +2342,51 @@ yyreduce:
                       ((yyvsp[-1].typeInfo).type == NULL_TYPE)) 
 				semanticError(1,
 				 ERR_CANNOT_BE_FUNCT_OR_NULL);
+                 
+                 
+                 printValue((yyvsp[-1].typeInfo));
                     (yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
                     (yyval.typeInfo).numParams = (yyvsp[-1].typeInfo).numParams;
                     (yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[-1].typeInfo).isParam;
+                    (yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
+                    (yyval.typeInfo).numParams = (yyvsp[-1].typeInfo).numParams;
+                    (yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
+                    (yyval.typeInfo).isParam = (yyvsp[-1].typeInfo).isParam;
+                    (yyval.typeInfo).val_bool = (yyvsp[-1].typeInfo).val_bool;
+                    (yyval.typeInfo).val_int = (yyvsp[-1].typeInfo).val_int;
+                    (yyval.typeInfo).val_float = (yyvsp[-1].typeInfo).val_float;
+                    strcpy((yyval.typeInfo).val_string, (yyvsp[-1].typeInfo).val_string);
+                    (yyval.typeInfo).is_null= (yyvsp[-1].typeInfo).is_null;
+                    
+                    
+                    (yyval.typeInfo).rlist = new RList;
+                    RList *temp = (yyvsp[-1].typeInfo).rlist;
+                    RList *temp_new = (yyval.typeInfo).rlist;
+                    while(temp!=NULL)
+                    {   
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }                     
+                    
+                    
+                    
                 }
-#line 2125 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2386 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 699 "zhangy.y" /* yacc.c:1646  */
+#line 960 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("OUTPUT_EXPR", 
                               "CAT ( EXPR )");
@@ -2137,12 +2398,13 @@ yyreduce:
                     (yyval.typeInfo).numParams = (yyvsp[-1].typeInfo).numParams;
                     (yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[-1].typeInfo).isParam;
+                    (yyval.typeInfo).is_null=true;
                 }
-#line 2142 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2404 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 714 "zhangy.y" /* yacc.c:1646  */
+#line 976 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("INPUT_EXPR", "READ ( )");
                     (yyval.typeInfo).type = INT_OR_STR_OR_FLOAT;
@@ -2150,30 +2412,30 @@ yyreduce:
                     (yyval.typeInfo).returnType = NOT_APPLICABLE;
                     (yyval.typeInfo).isParam = false;
                 }
-#line 2154 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2416 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 724 "zhangy.y" /* yacc.c:1646  */
+#line 986 "zhangy.y" /* yacc.c:1646  */
     {
 			    printRule("FUNCTION_DEF",
                               "FUNCTION ( PARAM_LIST )"
                               " COMPOUND_EXPR");
                 	    beginScope();
                 }
-#line 2165 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2427 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 731 "zhangy.y" /* yacc.c:1646  */
+#line 993 "zhangy.y" /* yacc.c:1646  */
     {
 			    (yyval.num) = scopeStack.top().getNumEntries();
    		     }
-#line 2173 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2435 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 735 "zhangy.y" /* yacc.c:1646  */
+#line 997 "zhangy.y" /* yacc.c:1646  */
     {
                     endScope();
                     if((yyvsp[0].typeInfo).type == FUNCTION) 
@@ -2183,35 +2445,35 @@ yyreduce:
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).type;
                     (yyval.typeInfo).isParam = false;
                 }
-#line 2187 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2449 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 747 "zhangy.y" /* yacc.c:1646  */
+#line 1009 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("PARAM_LIST", "PARAMS");
                 }
-#line 2195 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2457 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 751 "zhangy.y" /* yacc.c:1646  */
+#line 1013 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("PARAM_LIST", "NO PARAMS");
                 }
-#line 2203 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2465 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 757 "zhangy.y" /* yacc.c:1646  */
+#line 1019 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("NO_PARAMS", "epsilon");
                 }
-#line 2211 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2473 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 763 "zhangy.y" /* yacc.c:1646  */
+#line 1025 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("PARAMS", "IDENT");
                     string lexeme = string((yyvsp[0].text));
@@ -2230,11 +2492,11 @@ yyreduce:
 				semanticError(0,
 				 ERR_MULTIPLY_DEFINED_IDENT);
                 }
-#line 2234 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2496 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 782 "zhangy.y" /* yacc.c:1646  */
+#line 1044 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("PARAMS", "IDENT, PARAMS");
                     string lexeme = string((yyvsp[-2].text));
@@ -2252,11 +2514,11 @@ yyreduce:
 				semanticError(0,
 				 ERR_MULTIPLY_DEFINED_IDENT);
                 }
-#line 2256 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2518 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 802 "zhangy.y" /* yacc.c:1646  */
+#line 1064 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FUNCTION_CALL", "IDENT"
                               " ( ARG_LIST )");
@@ -2275,39 +2537,39 @@ yyreduce:
                     (yyval.typeInfo).returnType = NOT_APPLICABLE;
                     (yyval.typeInfo).isParam = false;
                 }
-#line 2279 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2541 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 823 "zhangy.y" /* yacc.c:1646  */
+#line 1085 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ARG_LIST", "ARGS");
                     (yyval.num) = (yyvsp[0].num);
                     numExprs = 0;
                 }
-#line 2289 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2551 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 829 "zhangy.y" /* yacc.c:1646  */
+#line 1091 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ARG_LIST", "NO_ARGS");
                     numExprs = 0;
                     (yyval.num) = numExprs;
                 }
-#line 2299 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2561 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 837 "zhangy.y" /* yacc.c:1646  */
+#line 1099 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("NO_ARGS", "epsilon");
                 }
-#line 2307 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2569 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 843 "zhangy.y" /* yacc.c:1646  */
+#line 1105 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ARGS", "EXPR");
                     numExprs++;
@@ -2316,11 +2578,11 @@ yyreduce:
 				              ERR_NON_INT_FUNCT_PARAM);
 			    (yyval.num) = numExprs;
                 }
-#line 2320 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2582 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 852 "zhangy.y" /* yacc.c:1646  */
+#line 1114 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ARGS", "EXPR, ARGS");
                     numExprs++;
@@ -2328,19 +2590,19 @@ yyreduce:
 				semanticError(0,
 				              ERR_NON_INT_FUNCT_PARAM);
                 }
-#line 2332 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2594 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 860 "zhangy.y" /* yacc.c:1646  */
+#line 1122 "zhangy.y" /* yacc.c:1646  */
     {
 			    (yyval.num) = numExprs;
 			}
-#line 2340 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2602 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 866 "zhangy.y" /* yacc.c:1646  */
+#line 1128 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ARITHLOGIC_EXPR",
                               "SIMPLE_ARITHLOGIC");
@@ -2348,12 +2610,38 @@ yyreduce:
                     (yyval.typeInfo).numParams = (yyvsp[0].typeInfo).numParams;
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
+                    
+                    (yyval.typeInfo).val_bool = (yyvsp[0].typeInfo).val_bool;
+                    (yyval.typeInfo).val_int = (yyvsp[0].typeInfo).val_int;
+                    (yyval.typeInfo).val_float = (yyvsp[0].typeInfo).val_float;
+                    strcpy((yyval.typeInfo).val_string, (yyvsp[0].typeInfo).val_string);
+                    (yyval.typeInfo).is_null= (yyvsp[0].typeInfo).is_null;
+                    
+                    
+                    (yyval.typeInfo).rlist = new RList;
+                    RList *temp = (yyvsp[0].typeInfo).rlist;
+                    RList *temp_new = (yyval.typeInfo).rlist;
+                    while(temp!=NULL)
+                    {   
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }
                 }
-#line 2353 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2641 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 876 "zhangy.y" /* yacc.c:1646  */
+#line 1164 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ARITHLOGIC_EXPR",
                               "SIMPLE_ARITHLOGIC REL_OP "
@@ -2369,11 +2657,11 @@ yyreduce:
                     (yyval.typeInfo).returnType = NOT_APPLICABLE;
                     (yyval.typeInfo).isParam = false;
                 }
-#line 2373 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2661 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 894 "zhangy.y" /* yacc.c:1646  */
+#line 1182 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("SIMPLE_ARITHLOGIC",
                               "TERM ADD_OP_LIST");
@@ -2401,17 +2689,43 @@ yyreduce:
 			    }
                     else 
 			    {
-				(yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
-				(yyval.typeInfo).numParams = (yyvsp[-1].typeInfo).numParams;
-				(yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
-                    	(yyval.typeInfo).isParam = (yyvsp[-1].typeInfo).isParam;
+                    (yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
+                    (yyval.typeInfo).numParams = (yyvsp[-1].typeInfo).numParams;
+                    (yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
+                    (yyval.typeInfo).isParam = (yyvsp[-1].typeInfo).isParam;
+                    
+                    (yyval.typeInfo).val_bool = (yyvsp[-1].typeInfo).val_bool;
+                    (yyval.typeInfo).val_int = (yyvsp[-1].typeInfo).val_int;
+                    (yyval.typeInfo).val_float = (yyvsp[-1].typeInfo).val_float;
+                    strcpy((yyval.typeInfo).val_string, (yyvsp[-1].typeInfo).val_string);
+                    (yyval.typeInfo).is_null= (yyvsp[-1].typeInfo).is_null;
+                    
+                    
+                    (yyval.typeInfo).rlist = new RList;
+                    RList *temp = (yyvsp[-1].typeInfo).rlist;
+                    RList *temp_new = (yyval.typeInfo).rlist;
+                    while(temp!=NULL)
+                    {   
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }
 			    }
                 }
-#line 2411 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2725 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 930 "zhangy.y" /* yacc.c:1646  */
+#line 1244 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP_LIST",
                               "ADD_OP TERM ADD_OP_LIST");
@@ -2427,8 +2741,39 @@ yyreduce:
 			    else
 			    {
 				if ((yyvsp[0].typeInfo).type == NOT_APPLICABLE)
-				  (yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
-				else
+                {
+                    (yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
+                    (yyval.typeInfo).numParams = (yyvsp[-1].typeInfo).numParams;
+                    (yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
+                    (yyval.typeInfo).isParam = (yyvsp[-1].typeInfo).isParam;
+                    
+                    (yyval.typeInfo).val_bool = (yyvsp[-1].typeInfo).val_bool;
+                    (yyval.typeInfo).val_int = (yyvsp[-1].typeInfo).val_int;
+                    (yyval.typeInfo).val_float = (yyvsp[-1].typeInfo).val_float;
+                    strcpy((yyval.typeInfo).val_string, (yyvsp[-1].typeInfo).val_string);
+                    (yyval.typeInfo).is_null= (yyvsp[-1].typeInfo).is_null;
+                    
+                    
+                    (yyval.typeInfo).rlist = new RList;
+                    RList *temp = (yyvsp[-1].typeInfo).rlist;
+                    RList *temp_new = (yyval.typeInfo).rlist;
+                    while(temp!=NULL)
+                    {   
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }
+				}
+                else
 				{
 				  if (isIntCompatible((yyvsp[-1].typeInfo).type) &&
 					 isIntCompatible((yyvsp[0].typeInfo).type))
@@ -2437,11 +2782,11 @@ yyreduce:
 				}
                     }
                 }
-#line 2441 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2786 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 956 "zhangy.y" /* yacc.c:1646  */
+#line 1301 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP_LIST", "epsilon");
 			    (yyval.typeInfo).type = NOT_APPLICABLE;
@@ -2449,11 +2794,11 @@ yyreduce:
 			    (yyval.typeInfo).returnType = NOT_APPLICABLE;
 			    (yyval.typeInfo).isParam = false;
                 }
-#line 2453 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2798 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 966 "zhangy.y" /* yacc.c:1646  */
+#line 1311 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("TERM",
                               "FACTOR MULT_OP_LIST");
@@ -2481,17 +2826,43 @@ yyreduce:
 			    }
                     else 
 			    {
-				(yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
-				(yyval.typeInfo).numParams = (yyvsp[-1].typeInfo).numParams;
-				(yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
-				(yyval.typeInfo).isParam = (yyvsp[-1].typeInfo).isParam;
+                    (yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
+                    (yyval.typeInfo).numParams = (yyvsp[-1].typeInfo).numParams;
+                    (yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
+                    (yyval.typeInfo).isParam = (yyvsp[-1].typeInfo).isParam;
+                    
+                    (yyval.typeInfo).val_bool = (yyvsp[-1].typeInfo).val_bool;
+                    (yyval.typeInfo).val_int = (yyvsp[-1].typeInfo).val_int;
+                    (yyval.typeInfo).val_float = (yyvsp[-1].typeInfo).val_float;
+                    strcpy((yyval.typeInfo).val_string, (yyvsp[-1].typeInfo).val_string);
+                    (yyval.typeInfo).is_null= (yyvsp[-1].typeInfo).is_null;
+                    
+                    
+                    (yyval.typeInfo).rlist = new RList;
+                    RList *temp = (yyvsp[-1].typeInfo).rlist;
+                    RList *temp_new = (yyval.typeInfo).rlist;
+                    while(temp!=NULL)
+                    {   
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }
 			    }
                 }
-#line 2491 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2862 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 1002 "zhangy.y" /* yacc.c:1646  */
+#line 1373 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP_LIST",
                               "MULT_OP FACTOR MULT_OP_LIST");
@@ -2502,8 +2873,38 @@ yyreduce:
 			    (yyval.typeInfo).numParams = NOT_APPLICABLE;
                     (yyval.typeInfo).returnType = NOT_APPLICABLE;
 			    (yyval.typeInfo).isParam = false;
-			    if ((yyvsp[0].typeInfo).type == NOT_APPLICABLE)
-				  (yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
+			    if ((yyvsp[0].typeInfo).type == NOT_APPLICABLE){
+                    (yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
+                    (yyval.typeInfo).numParams = (yyvsp[-1].typeInfo).numParams;
+                    (yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
+                    (yyval.typeInfo).isParam = (yyvsp[-1].typeInfo).isParam;
+                    
+                    (yyval.typeInfo).val_bool = (yyvsp[-1].typeInfo).val_bool;
+                    (yyval.typeInfo).val_int = (yyvsp[-1].typeInfo).val_int;
+                    (yyval.typeInfo).val_float = (yyvsp[-1].typeInfo).val_float;
+                    strcpy((yyval.typeInfo).val_string, (yyvsp[-1].typeInfo).val_string);
+                    (yyval.typeInfo).is_null= (yyvsp[-1].typeInfo).is_null;
+                    
+                    
+                    (yyval.typeInfo).rlist = new RList;
+                    RList *temp = (yyvsp[-1].typeInfo).rlist;
+                    RList *temp_new = (yyval.typeInfo).rlist;
+                    while(temp!=NULL)
+                    {   
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }
+                }
 			    else
 			    {
                       if(isInvalidOperandType((yyvsp[0].typeInfo).type))                    				  semanticError(argWithErr,
@@ -2519,11 +2920,11 @@ yyreduce:
 			      }
                     }
                 }
-#line 2523 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2924 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 1030 "zhangy.y" /* yacc.c:1646  */
+#line 1431 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP_LIST", "epsilon");
 			    (yyval.typeInfo).type = NOT_APPLICABLE;
@@ -2531,23 +2932,49 @@ yyreduce:
 			    (yyval.typeInfo).returnType = NOT_APPLICABLE;
                     (yyval.typeInfo).isParam = false;
                 }
-#line 2535 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2936 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 1040 "zhangy.y" /* yacc.c:1646  */
+#line 1441 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FACTOR", "VAR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
                     (yyval.typeInfo).numParams = (yyvsp[0].typeInfo).numParams;
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
+                    
+                    (yyval.typeInfo).val_bool = (yyvsp[0].typeInfo).val_bool;
+                    (yyval.typeInfo).val_int = (yyvsp[0].typeInfo).val_int;
+                    (yyval.typeInfo).val_float = (yyvsp[0].typeInfo).val_float;
+                    strcpy((yyval.typeInfo).val_string, (yyvsp[0].typeInfo).val_string);
+                    (yyval.typeInfo).is_null= (yyvsp[0].typeInfo).is_null;
+                    
+                    
+                    (yyval.typeInfo).rlist = new RList;
+                    RList *temp = (yyvsp[0].typeInfo).rlist;
+                    RList *temp_new = (yyval.typeInfo).rlist;
+                    while(temp!=NULL)
+                    {   
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }
                 }
-#line 2547 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2974 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 1048 "zhangy.y" /* yacc.c:1646  */
+#line 1475 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FACTOR", "CONST");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -2555,11 +2982,11 @@ yyreduce:
                     (yyval.typeInfo).returnType = NOT_APPLICABLE;
                     (yyval.typeInfo).isParam = false;
                 }
-#line 2559 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2986 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 1056 "zhangy.y" /* yacc.c:1646  */
+#line 1483 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FACTOR", "( EXPR )");
                     (yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
@@ -2567,11 +2994,11 @@ yyreduce:
                     (yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[-1].typeInfo).isParam;
                 }
-#line 2571 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2998 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 1064 "zhangy.y" /* yacc.c:1646  */
+#line 1491 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FACTOR", "! FACTOR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -2579,137 +3006,137 @@ yyreduce:
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
                 }
-#line 2583 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3010 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 1074 "zhangy.y" /* yacc.c:1646  */
+#line 1501 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP", "+");
                     (yyval.num) = ARITHMETIC_OP;
                 }
-#line 2592 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3019 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 1079 "zhangy.y" /* yacc.c:1646  */
+#line 1506 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP", "-");
                     (yyval.num) = ARITHMETIC_OP;
                 }
-#line 2601 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3028 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 1084 "zhangy.y" /* yacc.c:1646  */
+#line 1511 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP", "|");
                     (yyval.num) = LOGICAL_OP;
                 }
-#line 2610 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3037 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 1091 "zhangy.y" /* yacc.c:1646  */
+#line 1518 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "*");
                     (yyval.num) = ARITHMETIC_OP;
                 }
-#line 2619 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3046 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 1096 "zhangy.y" /* yacc.c:1646  */
+#line 1523 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "/");
                     (yyval.num) = ARITHMETIC_OP;
                 }
-#line 2628 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3055 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 1101 "zhangy.y" /* yacc.c:1646  */
+#line 1528 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "&");
                     (yyval.num) = LOGICAL_OP;
                 }
-#line 2637 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3064 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 1106 "zhangy.y" /* yacc.c:1646  */
+#line 1533 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "\%\%");
                     (yyval.num) = ARITHMETIC_OP;
                 }
-#line 2646 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3073 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 1111 "zhangy.y" /* yacc.c:1646  */
+#line 1538 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "^");
                     (yyval.num) = ARITHMETIC_OP;
                 }
-#line 2655 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3082 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 1118 "zhangy.y" /* yacc.c:1646  */
+#line 1545 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", "<");
                     (yyval.num) = RELATIONAL_OP;
                 }
-#line 2664 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3091 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 1123 "zhangy.y" /* yacc.c:1646  */
+#line 1550 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", ">");
                     (yyval.num) = RELATIONAL_OP;
                 }
-#line 2673 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3100 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 1128 "zhangy.y" /* yacc.c:1646  */
+#line 1555 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", "<=");
                     (yyval.num) = RELATIONAL_OP;
                 }
-#line 2682 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3109 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 1133 "zhangy.y" /* yacc.c:1646  */
+#line 1560 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", ">=");
                     (yyval.num) = RELATIONAL_OP;
                 }
-#line 2691 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3118 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 1138 "zhangy.y" /* yacc.c:1646  */
+#line 1565 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", "==");
                     (yyval.num) = RELATIONAL_OP;
                 }
-#line 2700 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3127 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 1143 "zhangy.y" /* yacc.c:1646  */
+#line 1570 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", "!=");
                     (yyval.num) = RELATIONAL_OP;
                 }
-#line 2709 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3136 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 1150 "zhangy.y" /* yacc.c:1646  */
+#line 1577 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("VAR", "ENTIRE_VAR");
                     (yyval.typeInfo).type == (yyvsp[0].typeInfo).type;
@@ -2717,11 +3144,11 @@ yyreduce:
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
                 }
-#line 2721 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3148 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 1158 "zhangy.y" /* yacc.c:1646  */
+#line 1585 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("VAR", "SINGLE_ELEMENT");
                     (yyval.typeInfo).type == (yyvsp[0].typeInfo).type;
@@ -2729,11 +3156,11 @@ yyreduce:
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
                 }
-#line 2733 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3160 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 86:
-#line 1169 "zhangy.y" /* yacc.c:1646  */
+#line 1596 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("SINGLE_ELEMENT", "IDENT"
                               " [[ EXPR ]]");
@@ -2748,11 +3175,11 @@ yyreduce:
                     (yyval.typeInfo).returnType = NOT_APPLICABLE;
                     (yyval.typeInfo).isParam = false;
                 }
-#line 2752 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3179 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 1186 "zhangy.y" /* yacc.c:1646  */
+#line 1613 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ENTIRE_VAR", "IDENT");
                     TYPE_INFO exprTypeInfo = 
@@ -2763,12 +3190,40 @@ yyreduce:
                     (yyval.typeInfo).numParams = exprTypeInfo.numParams;
                     (yyval.typeInfo).returnType = exprTypeInfo.returnType;
                     (yyval.typeInfo).isParam = exprTypeInfo.isParam;
+                    
+                    (yyval.typeInfo).val_bool = exprTypeInfo.val_bool;
+                    (yyval.typeInfo).val_int = exprTypeInfo.val_int;
+                    (yyval.typeInfo).val_float = exprTypeInfo.val_float;
+                    strcpy((yyval.typeInfo).val_string, exprTypeInfo.val_string);
+                    (yyval.typeInfo).is_null= exprTypeInfo.is_null;
+                    
+                    
+                    (yyval.typeInfo).rlist = new RList;
+                    RList *temp = exprTypeInfo.rlist;
+                    RList *temp_new = (yyval.typeInfo).rlist;
+                    while(temp!=NULL)
+                    {   
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }
+                    
+                    printf("the length at entire var is %d\n", exprTypeInfo.rlist->length);
                 }
-#line 2768 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3223 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2772 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3227 "zhangy.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2996,7 +3451,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 1199 "zhangy.y" /* yacc.c:1906  */
+#line 1654 "zhangy.y" /* yacc.c:1906  */
 
 
 #include "lex.yy.c"
