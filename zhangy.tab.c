@@ -572,9 +572,9 @@ static const yytype_uint16 yyrline[] =
      699,   671,   712,   732,   747,   766,   765,   990,  1000,  1006,
     1017,  1065,  1081,  1114,  1121,  1113,  1136,  1140,  1147,  1152,
     1171,  1191,  1212,  1218,  1227,  1232,  1242,  1241,  1255,  1273,
-    1297,  1359,  1417,  1426,  1488,  1547,  1556,  1590,  1598,  1606,
-    1616,  1621,  1626,  1633,  1638,  1643,  1648,  1653,  1660,  1665,
-    1670,  1675,  1680,  1685,  1692,  1704,  1718,  1755
+    1297,  1362,  1420,  1429,  1491,  1550,  1559,  1593,  1601,  1609,
+    1619,  1624,  1629,  1636,  1641,  1646,  1651,  1656,  1663,  1668,
+    1673,  1678,  1683,  1688,  1695,  1707,  1721,  1758
 };
 #endif
 
@@ -2789,7 +2789,10 @@ yyreduce:
                       if(isInvalidOperandType((yyvsp[0].typeInfo).type))
                         semanticError(2,
 				    ERR_MUST_BE_INT_FLOAT_OR_BOOL);
-				if (isBoolCompatible((yyvsp[-1].typeInfo).type) &&
+				(yyval.typeInfo).val_bool = (yyvsp[-1].typeInfo).val_bool+(yyvsp[0].typeInfo).val_bool;
+                    (yyval.typeInfo).val_int = (yyvsp[-1].typeInfo).val_int+(yyvsp[0].typeInfo).val_bool;
+                    (yyval.typeInfo).val_float = (yyvsp[-1].typeInfo).val_float+(yyvsp[0].typeInfo).val_bool;
+                if (isBoolCompatible((yyvsp[-1].typeInfo).type) &&
 				    isBoolCompatible((yyvsp[0].typeInfo).type))
 				  (yyval.typeInfo).type = BOOL;
 				else if (isIntCompatible((yyvsp[-1].typeInfo).type) &&
@@ -2837,11 +2840,11 @@ yyreduce:
                     }
 			    }
                 }
-#line 2841 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2844 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 1360 "zhangy.y" /* yacc.c:1646  */
+#line 1363 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP_LIST",
                               "ADD_OP TERM ADD_OP_LIST");
@@ -2898,11 +2901,11 @@ yyreduce:
 				}
                     }
                 }
-#line 2902 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2905 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 1417 "zhangy.y" /* yacc.c:1646  */
+#line 1420 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP_LIST", "epsilon");
 			    (yyval.typeInfo).type = NOT_APPLICABLE;
@@ -2910,11 +2913,11 @@ yyreduce:
 			    (yyval.typeInfo).returnType = NOT_APPLICABLE;
 			    (yyval.typeInfo).isParam = false;
                 }
-#line 2914 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2917 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 1427 "zhangy.y" /* yacc.c:1646  */
+#line 1430 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("TERM",
                               "FACTOR MULT_OP_LIST");
@@ -2974,11 +2977,11 @@ yyreduce:
                     }
 			    }
                 }
-#line 2978 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2981 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 1489 "zhangy.y" /* yacc.c:1646  */
+#line 1492 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP_LIST",
                               "MULT_OP FACTOR MULT_OP_LIST");
@@ -3036,11 +3039,11 @@ yyreduce:
 			      }
                     }
                 }
-#line 3040 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3043 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 1547 "zhangy.y" /* yacc.c:1646  */
+#line 1550 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP_LIST", "epsilon");
 			    (yyval.typeInfo).type = NOT_APPLICABLE;
@@ -3048,11 +3051,11 @@ yyreduce:
 			    (yyval.typeInfo).returnType = NOT_APPLICABLE;
                     (yyval.typeInfo).isParam = false;
                 }
-#line 3052 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3055 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 1557 "zhangy.y" /* yacc.c:1646  */
+#line 1560 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FACTOR", "VAR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -3086,11 +3089,11 @@ yyreduce:
                         temp_new = temp_new->rlist;
                     }
                 }
-#line 3090 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3093 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 1591 "zhangy.y" /* yacc.c:1646  */
+#line 1594 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FACTOR", "CONST");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -3098,11 +3101,11 @@ yyreduce:
                     (yyval.typeInfo).returnType = NOT_APPLICABLE;
                     (yyval.typeInfo).isParam = false;
                 }
-#line 3102 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3105 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 1599 "zhangy.y" /* yacc.c:1646  */
+#line 1602 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FACTOR", "( EXPR )");
                     (yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
@@ -3110,11 +3113,11 @@ yyreduce:
                     (yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[-1].typeInfo).isParam;
                 }
-#line 3114 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3117 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 1607 "zhangy.y" /* yacc.c:1646  */
+#line 1610 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FACTOR", "! FACTOR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -3122,137 +3125,137 @@ yyreduce:
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
                 }
-#line 3126 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3129 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 1617 "zhangy.y" /* yacc.c:1646  */
+#line 1620 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP", "+");
                     (yyval.num) = ARITHMETIC_OP;
                 }
-#line 3135 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3138 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 1622 "zhangy.y" /* yacc.c:1646  */
+#line 1625 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP", "-");
                     (yyval.num) = ARITHMETIC_OP;
                 }
-#line 3144 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3147 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 1627 "zhangy.y" /* yacc.c:1646  */
+#line 1630 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP", "|");
                     (yyval.num) = LOGICAL_OP;
                 }
-#line 3153 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3156 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 1634 "zhangy.y" /* yacc.c:1646  */
+#line 1637 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "*");
                     (yyval.num) = ARITHMETIC_OP;
                 }
-#line 3162 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3165 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 1639 "zhangy.y" /* yacc.c:1646  */
+#line 1642 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "/");
                     (yyval.num) = ARITHMETIC_OP;
                 }
-#line 3171 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3174 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 1644 "zhangy.y" /* yacc.c:1646  */
+#line 1647 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "&");
                     (yyval.num) = LOGICAL_OP;
                 }
-#line 3180 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3183 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 1649 "zhangy.y" /* yacc.c:1646  */
+#line 1652 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "\%\%");
                     (yyval.num) = ARITHMETIC_OP;
                 }
-#line 3189 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3192 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 1654 "zhangy.y" /* yacc.c:1646  */
+#line 1657 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "^");
                     (yyval.num) = ARITHMETIC_OP;
                 }
-#line 3198 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3201 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 1661 "zhangy.y" /* yacc.c:1646  */
+#line 1664 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", "<");
                     (yyval.num) = RELATIONAL_OP;
                 }
-#line 3207 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3210 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 1666 "zhangy.y" /* yacc.c:1646  */
+#line 1669 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", ">");
                     (yyval.num) = RELATIONAL_OP;
                 }
-#line 3216 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3219 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 1671 "zhangy.y" /* yacc.c:1646  */
+#line 1674 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", "<=");
                     (yyval.num) = RELATIONAL_OP;
                 }
-#line 3225 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3228 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 1676 "zhangy.y" /* yacc.c:1646  */
+#line 1679 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", ">=");
                     (yyval.num) = RELATIONAL_OP;
                 }
-#line 3234 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3237 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 1681 "zhangy.y" /* yacc.c:1646  */
+#line 1684 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", "==");
                     (yyval.num) = RELATIONAL_OP;
                 }
-#line 3243 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3246 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 1686 "zhangy.y" /* yacc.c:1646  */
+#line 1689 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", "!=");
                     (yyval.num) = RELATIONAL_OP;
                 }
-#line 3252 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3255 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 1693 "zhangy.y" /* yacc.c:1646  */
+#line 1696 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("VAR", "ENTIRE_VAR");
                     (yyval.typeInfo).type == (yyvsp[0].typeInfo).type;
@@ -3264,11 +3267,11 @@ yyreduce:
                     (yyval.typeInfo).val_float = (yyvsp[0].typeInfo).val_float;
                     strcpy((yyval.typeInfo).val_string, (yyvsp[0].typeInfo).val_string);                    
                 }
-#line 3268 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3271 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 1705 "zhangy.y" /* yacc.c:1646  */
+#line 1708 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("VAR", "SINGLE_ELEMENT");
                     (yyval.typeInfo).type == (yyvsp[0].typeInfo).type;
@@ -3280,11 +3283,11 @@ yyreduce:
                     (yyval.typeInfo).val_float = (yyvsp[0].typeInfo).val_float;
                     strcpy((yyval.typeInfo).val_string, (yyvsp[0].typeInfo).val_string);                    
                 }
-#line 3284 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3287 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 86:
-#line 1720 "zhangy.y" /* yacc.c:1646  */
+#line 1723 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("SINGLE_ELEMENT", "IDENT"
                               " [[ EXPR ]]");
@@ -3318,11 +3321,11 @@ yyreduce:
                     (yyval.typeInfo).returnType = NOT_APPLICABLE;
                     (yyval.typeInfo).isParam = false;
                 }
-#line 3322 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3325 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 1756 "zhangy.y" /* yacc.c:1646  */
+#line 1759 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ENTIRE_VAR", "IDENT");
                     TYPE_INFO exprTypeInfo = 
@@ -3361,11 +3364,11 @@ yyreduce:
                     }
                     
                 }
-#line 3365 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3368 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 3369 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3372 "zhangy.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -3593,7 +3596,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 1796 "zhangy.y" /* yacc.c:1906  */
+#line 1799 "zhangy.y" /* yacc.c:1906  */
 
 
 #include "lex.yy.c"
