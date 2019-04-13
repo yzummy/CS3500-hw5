@@ -1309,8 +1309,8 @@ N_SIMPLE_ARITHLOGIC : N_TERM N_ADD_OP_LIST
 				$$.val_bool = $1.val_bool;
                     $$.val_int = $1.val_int;
                     $$.val_float = $1.val_float;
-                if (($1.type==FLOAT||$2.type==FLOAT)&&(isIntCompatible($1.type) &&
-				         isIntCompatible($2.type)))
+                if (($1.type==FLOAT||$2.type==FLOAT)&&(isFloatCompatible($1.type) &&
+				         isFloatCompatible($2.type)))
 				  $$.type = FLOAT;
 				else if (isIntCompatible($1.type) &&
 				         isIntCompatible($2.type))
