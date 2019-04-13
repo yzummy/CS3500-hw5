@@ -172,7 +172,7 @@ ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST			      <
 SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
 ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
 EXPR -> ARITHLOGIC_EXPR					      <
-( 3.14 -21 "BoJack" TRUE )( 3.14 -21 "BoJack" TRUE )EXPR -> A <
+( 3.14 -21 "BoJack" TRUE )( 3.14 4 "BoJack" TRUE )EXPR -> ASS <
 TOKEN: PRINT 		 LEXEME: print			      <
 TOKEN: LPAREN 		 LEXEME: (			      <
 TOKEN: IDENT 		 LEXEME: A			      <
@@ -187,7 +187,7 @@ SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
 ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
 EXPR -> ARITHLOGIC_EXPR					      <
 OUTPUT_EXPR -> PRINT ( EXPR )				      <
-( 3.14 -21 "BoJack" TRUE )EXPR -> OUTPUT_EXPR		      <
+( 3.14 4 "BoJack" TRUE )EXPR -> OUTPUT_EXPR		      <
 TOKEN: SEMICOLON 		 LEXEME: ;		      <
 TOKEN: IDENT 		 LEXEME: y			      <
 TOKEN: ASSIGN 		 LEXEME: =			      <

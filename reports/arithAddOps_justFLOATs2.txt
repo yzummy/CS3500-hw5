@@ -39,7 +39,7 @@ START -> EXPR						      <
 							      <
 ---- Completed parsing ----					---- Completed parsing ----
 
- Value of the expression is: 100.25			      |	Value of the expression is:  24.35
+ Value of the expression is: 200.50			      |	Value of the expression is:  24.35
 							      <
 ___Exiting scope...					      <
 							      <

@@ -22,7 +22,7 @@ START -> EXPR
 
 ---- Completed parsing ----
 
- Value of the expression is: 7
+ Value of the expression is: 12
 
 ___Exiting scope...
 
