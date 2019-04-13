@@ -64,7 +64,7 @@ START -> EXPR
 
 ---- Completed parsing ----
 
- Value of the expression is: 0
+ Value of the expression is: 3
 
 ___Exiting scope...
 
