@@ -1314,6 +1314,7 @@ N_SIMPLE_ARITHLOGIC : N_TERM N_ADD_OP_LIST
 				{
                 $$.type = FLOAT;
                 $$.val_float=$1.val_float+$1.val_float;
+                $$.returnType=FLOAT;
                 }
 				else if (isIntCompatible($1.type) &&
 				         isIntCompatible($2.type))
