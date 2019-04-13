@@ -1306,18 +1306,15 @@ N_SIMPLE_ARITHLOGIC : N_TERM N_ADD_OP_LIST
                       if(isInvalidOperandType($2.type))
                         semanticError(2,
 				    ERR_MUST_BE_INT_FLOAT_OR_BOOL);
-				$$.val_bool = $1.val_bool+$2.val_bool;
-                    $$.val_int = $1.val_int+$2.val_bool;
-                    $$.val_float = $1.val_float+$2.val_bool;
-                if (isBoolCompatible($1.type) &&
-				    isBoolCompatible($2.type))
-				  $$.type = BOOL;
+				$$.val_bool = $1.val_bool;
+                    $$.val_int = $1.val_int;
+                    $$.val_float = $1.val_float;
+                if (($1.type==FLOAT||$2.type==FLOAT)&&(isIntCompatible($1.type) &&
+				         isIntCompatible($2.type)))
+				  $$.type = FLOAT;
 				else if (isIntCompatible($1.type) &&
 				         isIntCompatible($2.type))
                              $$.type = INT;
-                     else if (isFloatCompatible($1.type) ||
-				         isFloatCompatible($2.type))
-				       $$.type = FLOAT;
 				else $$.type = $1.type;
 				$$.numParams = NOT_APPLICABLE;
 				$$.returnType = NOT_APPLICABLE;
