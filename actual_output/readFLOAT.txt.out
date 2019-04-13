@@ -22,3 +22,17 @@ TOKEN: READ 		 LEXEME: read
 TOKEN: LPAREN 		 LEXEME: (
 TOKEN: RPAREN 		 LEXEME: )
 INPUT_EXPR -> READ ( )
+0 0.000000 EXPR -> INPUT_EXPR
+TOKEN: RBRACE 		 LEXEME: }
+EXPR_LIST -> epsilon
+EXPR_LIST -> ; EXPR EXPR_LIST
+COMPOUND_EXPR -> { EXPR EXPR_LIST }
+EXPR -> COMPOUND_EXPR
+START -> EXPR
+
+---- Completed parsing ----
+
+ Value of the expression is: 
+
+___Exiting scope...
+
