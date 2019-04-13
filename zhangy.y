@@ -1311,10 +1311,16 @@ N_SIMPLE_ARITHLOGIC : N_TERM N_ADD_OP_LIST
                     $$.val_float = $1.val_float;
                 if (($1.type==FLOAT||$2.type==FLOAT)&&(isFloatCompatible($1.type) &&
 				         isFloatCompatible($2.type)))
-				  $$.type = FLOAT;
+				{
+                $$.type = FLOAT;
+                $$.val_float=$1.val_float+$1.val_float;
+                }
 				else if (isIntCompatible($1.type) &&
 				         isIntCompatible($2.type))
-                             $$.type = INT;
+                            { 
+                            $$.type = INT;
+                            $$.val_int=$1.val_int+$2.val_int;
+                            }
 				else $$.type = $1.type;
 				$$.numParams = NOT_APPLICABLE;
 				$$.returnType = NOT_APPLICABLE;
