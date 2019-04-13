@@ -2792,8 +2792,8 @@ yyreduce:
 				(yyval.typeInfo).val_bool = (yyvsp[-1].typeInfo).val_bool;
                     (yyval.typeInfo).val_int = (yyvsp[-1].typeInfo).val_int;
                     (yyval.typeInfo).val_float = (yyvsp[-1].typeInfo).val_float;
-                if (((yyvsp[-1].typeInfo).type==FLOAT||(yyvsp[0].typeInfo).type==FLOAT)&&(isIntCompatible((yyvsp[-1].typeInfo).type) &&
-				         isIntCompatible((yyvsp[0].typeInfo).type)))
+                if (((yyvsp[-1].typeInfo).type==FLOAT||(yyvsp[0].typeInfo).type==FLOAT)&&(isFloatCompatible((yyvsp[-1].typeInfo).type) &&
+				         isFloatCompatible((yyvsp[0].typeInfo).type)))
 				  (yyval.typeInfo).type = FLOAT;
 				else if (isIntCompatible((yyvsp[-1].typeInfo).type) &&
 				         isIntCompatible((yyvsp[0].typeInfo).type))
