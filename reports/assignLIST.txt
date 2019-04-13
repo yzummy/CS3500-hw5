@@ -1,4 +1,36 @@
 
+___Entering new scope...				      <
+							      <
+TOKEN: IDENT 		 LEXEME: myList			      <
+TOKEN: ASSIGN 		 LEXEME: =			      <
+INDEX ->  epsilon					      <
+ASSIGNMENT_EXPR -> IDENT INDEX ASSIGN EXPR		      <
+___Adding myList to symbol table			      <
+hello    hello   TOKEN: LIST 		 LEXEME: list	      <
+TOKEN: LPAREN 		 LEXEME: (			      <
+TOKEN: INTCONST 		 LEXEME: 23		      <
+CONST -> INTCONST					      <
+TOKEN: COMMA 		 LEXEME: ,			      <
+TOKEN: FLOATCONST 		 LEXEME: 3.14		      <
+CONST -> FLOATCONST					      <
+TOKEN: COMMA 		 LEXEME: ,			      <
+TOKEN: TRUE 		 LEXEME: TRUE			      <
+CONST -> TRUE						      <
+TOKEN: COMMA 		 LEXEME: ,			      <
+TOKEN: STRCONST 		 LEXEME: "BoJack"	      <
+CONST -> STRCONST					      <
+TOKEN: RPAREN 		 LEXEME: )			      <
+CONST_LIST -> CONST					      <
+CONST_LIST -> CONST, CONST_LIST				      <
+CONST_LIST -> CONST, CONST_LIST				      <
+CONST_LIST -> CONST, CONST_LIST				      <
+LIST_EXPR -> LIST ( CONST_LIST )			      <
+EXPR -> LIST_EXPR					      <
+EXPR -> ASSIGNMENT_EXPR					      <
+START -> EXPR						      <
+							      <
 ---- Completed parsing ----					---- Completed parsing ----
 
-							      >	Value of the expression is: ( 23   3.14 TRUE "BoJack" )
+ Value of the expression is: ( 23 3.14 TRUE "BoJack" )	      |	Value of the expression is: ( 23   3.14 TRUE "BoJack" )
+___Exiting scope...					      <
+							      <

@@ -1,4 +1,28 @@
 
+___Entering new scope...				      <
+							      <
+TOKEN: INTCONST 		 LEXEME: 7		      <
+CONST -> INTCONST					      <
+FACTOR -> CONST						      <
+TOKEN: ADD 		 LEXEME: +			      <
+MULT_OP_LIST -> epsilon					      <
+TERM -> FACTOR MULT_OP_LIST				      <
+ADD_OP -> +						      <
+TOKEN: INTCONST 		 LEXEME: 5		      <
+CONST -> INTCONST					      <
+FACTOR -> CONST						      <
+MULT_OP_LIST -> epsilon					      <
+TERM -> FACTOR MULT_OP_LIST				      <
+ADD_OP_LIST -> epsilon					      <
+ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST			      <
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
+EXPR -> ARITHLOGIC_EXPR					      <
+START -> EXPR						      <
+							      <
 ---- Completed parsing ----					---- Completed parsing ----
 
-							      >	Value of the expression is: 12
+ Value of the expression is: 7				      |	Value of the expression is: 12
+							      <
+___Exiting scope...					      <
+							      <

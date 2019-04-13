@@ -1,4 +1,44 @@
 
+___Entering new scope...				      <
+							      <
+TOKEN: IF 		 LEXEME: if			      <
+TOKEN: LPAREN 		 LEXEME: (			      <
+TOKEN: TRUE 		 LEXEME: TRUE			      <
+CONST -> TRUE						      <
+FACTOR -> CONST						      <
+TOKEN: RPAREN 		 LEXEME: )			      <
+MULT_OP_LIST -> epsilon					      <
+TERM -> FACTOR MULT_OP_LIST				      <
+ADD_OP_LIST -> epsilon					      <
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
+EXPR -> ARITHLOGIC_EXPR					      <
+TOKEN: STRCONST 		 LEXEME: "BoJack"	      <
+CONST -> STRCONST					      <
+FACTOR -> CONST						      <
+TOKEN: ELSE 		 LEXEME: else			      <
+MULT_OP_LIST -> epsilon					      <
+TERM -> FACTOR MULT_OP_LIST				      <
+ADD_OP_LIST -> epsilon					      <
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
+EXPR -> ARITHLOGIC_EXPR					      <
+TOKEN: FLOATCONST 		 LEXEME: 3.14		      <
+CONST -> FLOATCONST					      <
+FACTOR -> CONST						      <
+MULT_OP_LIST -> epsilon					      <
+TERM -> FACTOR MULT_OP_LIST				      <
+ADD_OP_LIST -> epsilon					      <
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
+EXPR -> ARITHLOGIC_EXPR					      <
+IF_EXPR -> IF ( EXPR ) EXPR ELSE EXPR			      <
+EXPR -> IF_EXPR						      <
+START -> EXPR						      <
+							      <
 ---- Completed parsing ----					---- Completed parsing ----
 
-							      >	Value of the expression is: "BoJack"
+ Value of the expression is: "BoJack"			      |	Value of the expression is: "BoJack"
+							      <
+___Exiting scope...					      <
+							      <

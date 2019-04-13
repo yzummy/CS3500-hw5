@@ -1,4 +1,26 @@
 
+___Entering new scope...				      <
+							      <
+TOKEN: INTCONST 		 LEXEME: 2		      <
+CONST -> INTCONST					      <
+FACTOR -> CONST						      <
+TOKEN: POWER 		 LEXEME: ^			      <
+MULT_OP -> ^						      <
+TOKEN: INTCONST 		 LEXEME: 5		      <
+CONST -> INTCONST					      <
+FACTOR -> CONST						      <
+MULT_OP_LIST -> epsilon					      <
+MULT_OP_LIST -> MULT_OP FACTOR MULT_OP_LIST		      <
+TERM -> FACTOR MULT_OP_LIST				      <
+ADD_OP_LIST -> epsilon					      <
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
+EXPR -> ARITHLOGIC_EXPR					      <
+START -> EXPR						      <
+							      <
 ---- Completed parsing ----					---- Completed parsing ----
 
-							      >	Value of the expression is: 32
+ Value of the expression is: 2				      |	Value of the expression is: 32
+							      <
+___Exiting scope...					      <
+							      <

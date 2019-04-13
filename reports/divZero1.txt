@@ -1,3 +1,43 @@
 							      |	Line 2: Attempted division by zero
+___Entering new scope...				      <
+							      <
+TOKEN: FLOATCONST 		 LEXEME: 3.14		      <
+CONST -> FLOATCONST					      <
+FACTOR -> CONST						      <
+TOKEN: DIV 		 LEXEME: /			      <
+MULT_OP -> /						      <
+TOKEN: LPAREN 		 LEXEME: (			      <
+TOKEN: INTCONST 		 LEXEME: 100		      <
+CONST -> INTCONST					      <
+FACTOR -> CONST						      <
+TOKEN: SUB 		 LEXEME: -			      <
+MULT_OP_LIST -> epsilon					      <
+TERM -> FACTOR MULT_OP_LIST				      <
+ADD_OP -> -						      <
+TOKEN: INTCONST 		 LEXEME: 100		      <
+CONST -> INTCONST					      <
+FACTOR -> CONST						      <
+TOKEN: RPAREN 		 LEXEME: )			      <
+MULT_OP_LIST -> epsilon					      <
+TERM -> FACTOR MULT_OP_LIST				      <
+ADD_OP_LIST -> epsilon					      <
+ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST			      <
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
+EXPR -> ARITHLOGIC_EXPR					      <
+FACTOR -> ( EXPR )					      <
+MULT_OP_LIST -> epsilon					      <
+MULT_OP_LIST -> MULT_OP FACTOR MULT_OP_LIST		      <
+TERM -> FACTOR MULT_OP_LIST				      <
+ADD_OP_LIST -> epsilon					      <
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
+EXPR -> ARITHLOGIC_EXPR					      <
+START -> EXPR						      <
+							      <
 ---- Completed parsing ----				      <
+							      <
+ Value of the expression is: 3.14			      <
+							      <
+___Exiting scope...					      <
 							      <

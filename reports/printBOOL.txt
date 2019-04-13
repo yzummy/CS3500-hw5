@@ -1,5 +1,26 @@
-							      >	TRUE
+							      <
+___Entering new scope...				      <
+							      <
+TOKEN: PRINT 		 LEXEME: print			      <
+TOKEN: LPAREN 		 LEXEME: (			      <
+TOKEN: TRUE 		 LEXEME: TRUE			      <
+CONST -> TRUE						      <
+FACTOR -> CONST						      <
+TOKEN: RPAREN 		 LEXEME: )			      <
+MULT_OP_LIST -> epsilon					      <
+TERM -> FACTOR MULT_OP_LIST				      <
+ADD_OP_LIST -> epsilon					      <
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
+EXPR -> ARITHLOGIC_EXPR					      <
+OUTPUT_EXPR -> PRINT ( EXPR )				      <
+TRUE								TRUE
+EXPR -> OUTPUT_EXPR					      <
+START -> EXPR						      <
 
 ---- Completed parsing ----					---- Completed parsing ----
 
-							      >	Value of the expression is: TRUE
+ Value of the expression is: TRUE			      |	Value of the expression is: TRUE
+							      <
+___Exiting scope...					      <
+							      <

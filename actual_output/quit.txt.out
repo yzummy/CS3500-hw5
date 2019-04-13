@@ -1,0 +1,8 @@
+
+___Entering new scope...
+
+TOKEN: QUIT 		 LEXEME: quit
+TOKEN: LPAREN 		 LEXEME: (
+TOKEN: RPAREN 		 LEXEME: )
+QUIT_EXPR -> QUIT()
+EXPR -> QUIT_EXPR

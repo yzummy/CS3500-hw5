@@ -1,4 +1,26 @@
 
+___Entering new scope...				      <
+							      <
+TOKEN: IDENT 		 LEXEME: fluffy			      <
+TOKEN: ASSIGN 		 LEXEME: =			      <
+INDEX ->  epsilon					      <
+ASSIGNMENT_EXPR -> IDENT INDEX ASSIGN EXPR		      <
+___Adding fluffy to symbol table			      <
+hello    hello   TOKEN: STRCONST 		 LEXEME: "kit <
+CONST -> STRCONST					      <
+FACTOR -> CONST						      <
+MULT_OP_LIST -> epsilon					      <
+TERM -> FACTOR MULT_OP_LIST				      <
+ADD_OP_LIST -> epsilon					      <
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
+EXPR -> ARITHLOGIC_EXPR					      <
+EXPR -> ASSIGNMENT_EXPR					      <
+START -> EXPR						      <
+							      <
 ---- Completed parsing ----					---- Completed parsing ----
 
-							      >	Value of the expression is: "kitty cat"
+ Value of the expression is: "kitty cat"		      |	Value of the expression is: "kitty cat"
+							      <
+___Exiting scope...					      <
+							      <

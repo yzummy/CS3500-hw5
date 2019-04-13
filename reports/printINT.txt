@@ -1,5 +1,26 @@
-							      >	987123
+							      <
+___Entering new scope...				      <
+							      <
+TOKEN: PRINT 		 LEXEME: print			      <
+TOKEN: LPAREN 		 LEXEME: (			      <
+TOKEN: INTCONST 		 LEXEME: 987123		      <
+CONST -> INTCONST					      <
+FACTOR -> CONST						      <
+TOKEN: RPAREN 		 LEXEME: )			      <
+MULT_OP_LIST -> epsilon					      <
+TERM -> FACTOR MULT_OP_LIST				      <
+ADD_OP_LIST -> epsilon					      <
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
+EXPR -> ARITHLOGIC_EXPR					      <
+OUTPUT_EXPR -> PRINT ( EXPR )				      <
+987123								987123
+EXPR -> OUTPUT_EXPR					      <
+START -> EXPR						      <
 
 ---- Completed parsing ----					---- Completed parsing ----
 
-							      >	Value of the expression is: 987123
+ Value of the expression is: 987123			      |	Value of the expression is: 987123
+							      <
+___Exiting scope...					      <
+							      <
