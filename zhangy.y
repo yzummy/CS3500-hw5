@@ -1413,10 +1413,23 @@ N_ADD_OP_LIST	: N_ADD_OP N_TERM N_ADD_OP_LIST
 				}
                 else
 				{
-				  if (isIntCompatible($2.type) &&
-					 isIntCompatible($3.type))
-                          $$.type = INT;
-                       else $$.type = FLOAT;
+				  if (($2.type==FLOAT||$3.type==FLOAT)&&(isFloatCompatible($2.type) &&
+				         isFloatCompatible($3.type)))
+				{
+                $$.type = FLOAT;
+                $$.val_float=$2.val_float+$3.val_float;
+                $$.returnType=FLOAT;
+                }
+				else if (isIntCompatible($2.type) &&
+				         isIntCompatible($3.type))
+                            { 
+                            $$.type = INT;
+                            $$.val_int=$2.val_int+$3.val_int;
+                            }
+				else $$.type = $2.type;
+				$$.numParams = NOT_APPLICABLE;
+				$$.returnType = NOT_APPLICABLE;
+                     	$$.isParam = false;
 				}
                     }
                 }
