@@ -30,7 +30,7 @@ START -> EXPR
 
 ---- Completed parsing ----
 
- Value of the expression is: 0.00
+ Value of the expression is: 7
 
 ___Exiting scope...
 
