@@ -60,7 +60,7 @@ const string ERR_MSG[NUM_ERR_MESSAGES] = {
 };
 
 // constant to suppress token printing
-const bool suppressTokenOutput = false;
+const bool suppressTokenOutput = true;
 
 int line_num = 1;
 int numExprs = 0;
@@ -152,7 +152,7 @@ N_START         : N_EXPR
                 {
                     printRule("START", "EXPR");
                     printf("\n---- Completed parsing ----\n");
-                    printf("\n Value of the expression is: ");
+                    printf("\nValue of the expression is: ");
                     printValue($1);
                     return 0;
                 }
@@ -851,7 +851,7 @@ N_ASSIGNMENT_EXPR : T_IDENT N_INDEX
                             yyerror("Subscript out of bounds");
                         }
                         
-                    printValue(exprTypeInfo);
+                    //printValue(exprTypeInfo);
                     
                     TYPE_INFO type_info;
                     type_info.type = exprTypeInfo.type;
@@ -900,7 +900,7 @@ N_ASSIGNMENT_EXPR : T_IDENT N_INDEX
                            type_info));
                     exprTypeInfo = 
                         scopeStack.top().findEntry(lexeme);
-                    printValue(exprTypeInfo);
+                    //printValue(exprTypeInfo);
                   }
                       
                     
@@ -1070,6 +1070,7 @@ N_OUTPUT_EXPR   : T_PRINT T_LPAREN N_EXPR T_RPAREN
                        ($3.type == NULL_TYPE)) 
 				semanticError(1,
 				 ERR_CANNOT_BE_FUNCT_OR_NULL);
+                    printValue($3);
                     $$.type = NULL_TYPE;
                     $$.numParams = $3.numParams;
                     $$.returnType = $3.returnType;
@@ -1102,7 +1103,7 @@ N_INPUT_EXPR    : T_READ T_LPAREN T_RPAREN
                         $$.type = STR;
                         strcpy($$.val_string, buffer.c_str());
                     }
-                    printf("%d %f %s", $$.val_int, $$.val_float, $$.val_string);
+                    //printf("%d %f %s", $$.val_int, $$.val_float, $$.val_string);
                     $$.numParams = NOT_APPLICABLE;
                     $$.returnType = NOT_APPLICABLE;
                     $$.isParam = false;
@@ -1967,7 +1968,7 @@ void printValue(TYPE_INFO type_info)
                     }
                     temp = temp->rlist;
             };
-            printf("%s"," )");
+            printf("%s\n"," )");
         }
 }
 

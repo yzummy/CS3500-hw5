@@ -1,26 +1,4 @@
 
-___Entering new scope...				      <
-							      <
-TOKEN: TRUE 		 LEXEME: TRUE			      <
-CONST -> TRUE						      <
-FACTOR -> CONST						      <
-TOKEN: AND 		 LEXEME: &			      <
-MULT_OP -> &						      <
-TOKEN: FALSE 		 LEXEME: FALSE			      <
-CONST -> FALSE						      <
-FACTOR -> CONST						      <
-MULT_OP_LIST -> epsilon					      <
-MULT_OP_LIST -> MULT_OP FACTOR MULT_OP_LIST		      <
-TERM -> FACTOR MULT_OP_LIST				      <
-ADD_OP_LIST -> epsilon					      <
-SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
-ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
-EXPR -> ARITHLOGIC_EXPR					      <
-START -> EXPR						      <
-							      <
 ---- Completed parsing ----					---- Completed parsing ----
 
  Value of the expression is: TRUE			      |	Value of the expression is: FALSE
-							      <
-___Exiting scope...					      <
-							      <

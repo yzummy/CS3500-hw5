@@ -1,25 +1,5 @@
-
-___Entering new scope...
-
-TOKEN: CAT 		 LEXEME: cat
-TOKEN: LPAREN 		 LEXEME: (
-TOKEN: INTCONST 		 LEXEME: +123987
-CONST -> INTCONST
-FACTOR -> CONST
-TOKEN: RPAREN 		 LEXEME: )
-MULT_OP_LIST -> epsilon
-TERM -> FACTOR MULT_OP_LIST
-ADD_OP_LIST -> epsilon
-SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
-ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
-EXPR -> ARITHLOGIC_EXPR
-OUTPUT_EXPR -> CAT ( EXPR )
-EXPR -> OUTPUT_EXPR
-START -> EXPR
+123987
 
 ---- Completed parsing ----
 
  Value of the expression is: NULL
-
-___Exiting scope...
-

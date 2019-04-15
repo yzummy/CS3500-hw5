@@ -19,13 +19,11 @@ public:
   // If successful, return true; otherwise, return false.
   bool addEntry(SYMBOL_TABLE_ENTRY x)
   {
-     printf("%s", "hello    ");
     // Make sure there isn't already an entry with the same name
     map<string, SYMBOL_TABLE_ENTRY>::iterator itr;
     if ((itr = hashTable.find(x.getName())) == hashTable.end())
     {
       hashTable.insert(make_pair(x.getName(), x));
-      printf("%s", "hello   ");
       return(true);
     }
     

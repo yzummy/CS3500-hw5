@@ -1,26 +1,5 @@
-							      <
-___Entering new scope...				      <
-							      <
-TOKEN: PRINT 		 LEXEME: print			      <
-TOKEN: LPAREN 		 LEXEME: (			      <
-TOKEN: STRCONST 		 LEXEME: "BoJack Horseman"    <
-CONST -> STRCONST					      <
-FACTOR -> CONST						      <
-TOKEN: RPAREN 		 LEXEME: )			      <
-MULT_OP_LIST -> epsilon					      <
-TERM -> FACTOR MULT_OP_LIST				      <
-ADD_OP_LIST -> epsilon					      <
-SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
-ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
-EXPR -> ARITHLOGIC_EXPR					      <
-OUTPUT_EXPR -> PRINT ( EXPR )				      <
 "BoJack Horseman"						"BoJack Horseman"
-EXPR -> OUTPUT_EXPR					      <
-START -> EXPR						      <
 
 ---- Completed parsing ----					---- Completed parsing ----
 
  Value of the expression is: "BoJack Horseman"		      |	Value of the expression is: "BoJack Horseman"
-							      <
-___Exiting scope...					      <
-							      <
