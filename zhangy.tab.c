@@ -132,7 +132,7 @@ const string ERR_MSG[NUM_ERR_MESSAGES] = {
 };
 
 // constant to suppress token printing
-const bool suppressTokenOutput = false;
+const bool suppressTokenOutput = true;
 
 int line_num = 1;
 int numExprs = 0;
@@ -591,9 +591,9 @@ static const yytype_uint16 yyrline[] =
      720,   692,   734,   754,   769,   788,   787,  1012,  1022,  1028,
     1039,  1087,  1104,  1137,  1144,  1136,  1159,  1163,  1170,  1175,
     1194,  1214,  1235,  1241,  1250,  1255,  1265,  1264,  1278,  1296,
-    1354,  1474,  1611,  1621,  1769,  1920,  1931,  1980,  1988,  2022,
-    2034,  2039,  2044,  2051,  2057,  2062,  2067,  2072,  2079,  2084,
-    2089,  2094,  2099,  2104,  2111,  2123,  2137,  2174
+    1354,  1476,  1613,  1623,  1776,  1929,  1940,  1989,  1997,  2032,
+    2050,  2055,  2060,  2067,  2073,  2078,  2083,  2088,  2095,  2100,
+    2105,  2110,  2115,  2120,  2127,  2139,  2153,  2190
 };
 #endif
 
@@ -2787,7 +2787,7 @@ yyreduce:
                    	semanticError(2,
 				    ERR_MUST_BE_INT_FLOAT_OR_BOOL);
                     
-                    printf("in expression %f and %f\n", (yyvsp[-2].typeInfo).val_float, (yyvsp[0].typeInfo).val_float);
+                    //printf("in expression %f and %f\n", $1.val_float, $3.val_float);
                     (yyval.typeInfo).type = BOOL; 
                     (yyval.typeInfo).numParams = NOT_APPLICABLE;
                     (yyval.typeInfo).returnType = NOT_APPLICABLE;
@@ -2840,7 +2840,7 @@ yyreduce:
                               "TERM ADD_OP_LIST");
 			    if ((yyvsp[0].typeInfo).type != NOT_APPLICABLE)
 			    {
-                    printf("it 1 is optype logical %d", (yyvsp[0].typeInfo).opType);
+                    //printf("it 1 is optype logical %d", $2.opType);
                       if(isInvalidOperandType((yyvsp[-1].typeInfo).type))
                         semanticError(1,
 				    ERR_MUST_BE_INT_FLOAT_OR_BOOL);
@@ -2866,7 +2866,7 @@ yyreduce:
                                         }
                                     }
                 if(isLogical((yyvsp[0].typeInfo).opType)){
-                    printf("it 2 is optype logical %d", (yyvsp[0].typeInfo).opType);
+                    //printf("it 2 is optype logical %d", $2.opType);
                     (yyval.typeInfo).type = BOOL;
                     if(((yyvsp[-1].typeInfo).type == FLOAT and (yyvsp[-1].typeInfo).val_float == 0) 
                         || ((yyvsp[-1].typeInfo).type == INT and (yyvsp[-1].typeInfo).val_int == 0)){
@@ -2889,6 +2889,8 @@ yyreduce:
 				else if (isIntCompatible((yyvsp[-1].typeInfo).type) &&
 				         isIntCompatible((yyvsp[0].typeInfo).type))
                             { 
+                            
+                            //printf("int calculation here!!!!\n");
                         
                                     (yyval.typeInfo).type = INT;
                                     if((yyvsp[0].typeInfo).opType == ARITHMETIC_OP_ADD){
@@ -2899,10 +2901,10 @@ yyreduce:
                             }
 				else{
                         (yyval.typeInfo).type = FLOAT;
-                        if((yyvsp[-1].typeInfo).val_int != 0){
+                        if((yyvsp[-1].typeInfo).type == INT){
                             (yyvsp[-1].typeInfo).val_float = (float)(yyvsp[-1].typeInfo).val_int;
                         }
-                        if((yyvsp[0].typeInfo).val_int != 0){
+                        if((yyvsp[0].typeInfo).type == INT){
                             (yyvsp[0].typeInfo).val_float = (float)(yyvsp[0].typeInfo).val_int;
                         }
                         if((yyvsp[0].typeInfo).opType == ARITHMETIC_OP_ADD){
@@ -2911,8 +2913,8 @@ yyreduce:
                             (yyval.typeInfo).val_float=(yyvsp[-1].typeInfo).val_float-(yyvsp[0].typeInfo).val_float;
                         }   
                 }
-                printf("float calculation here: %f %d %f = %f\n", (yyvsp[-1].typeInfo).val_float, (yyvsp[0].typeInfo).opType, (yyvsp[0].typeInfo).val_float, (yyval.typeInfo).val_float);
-                printf("int calculation here: %d %d %d = %d\n", (yyvsp[-1].typeInfo).val_int, (yyvsp[0].typeInfo).opType, (yyvsp[0].typeInfo).val_int, (yyval.typeInfo).val_int);
+                //printf("float calculation here: %f %d %f = %f\n", $1.val_float, $2.opType, $2.val_float, $$.val_float);
+                //printf("int calculation here: %d %d %d = %d\n", $1.val_int, $2.opType, $2.val_int, $$.val_int);
 				(yyval.typeInfo).numParams = NOT_APPLICABLE;
 				(yyval.typeInfo).returnType = NOT_APPLICABLE;
                      	(yyval.typeInfo).isParam = false;
@@ -2952,11 +2954,11 @@ yyreduce:
 			    }
                 (yyval.typeInfo).opType = (yyvsp[0].typeInfo).opType;
                 }
-#line 2956 "zhangy.tab.c" /* yacc.c:1646  */
+#line 2958 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 1475 "zhangy.y" /* yacc.c:1646  */
+#line 1477 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP_LIST",
                               "ADD_OP TERM ADD_OP_LIST");
@@ -2969,12 +2971,12 @@ yyreduce:
                     (yyval.typeInfo).isParam = false;
                 (yyval.typeInfo).opType = (yyvsp[-2].num);
                 
-                printf("it 3 is optype logical %d \n", (yyvsp[0].typeInfo).opType);
-                printf("is logical %s\n", isLogical((yyvsp[0].typeInfo).opType)?"TRUE":"FALSE");
+                //printf("it 3 is optype logical %d \n", $3.opType);
+                //printf("is logical %s\n", isLogical($3.opType)?"TRUE":"FALSE");
 			    if (isLogical((yyvsp[0].typeInfo).opType))
                 {
-                printf("55555 %f\n", (yyvsp[0].typeInfo).val_float);
-                printf("here 55555");
+                //printf("55555 %f\n", $3.val_float);
+                //printf("here 55555");
                     (yyval.typeInfo).type = BOOL;
                     if(((yyvsp[0].typeInfo).type == FLOAT and (yyvsp[0].typeInfo).val_float == 0) 
                         || ((yyvsp[0].typeInfo).type == INT and (yyvsp[0].typeInfo).val_int == 0)){
@@ -3002,7 +3004,7 @@ yyreduce:
                 }
                 else
 			    {
-                                printf("here 66666");
+                                //printf("here 66666");
 
 				if ((yyvsp[0].typeInfo).type == NOT_APPLICABLE)
                 {
@@ -3039,7 +3041,7 @@ yyreduce:
 				}
                 else
 				{
-                    printf("Convert bool to float and int \n");
+                    //printf("Convert bool to float and int \n");
                                      if((yyvsp[-1].typeInfo).type==BOOL){
                                         if((yyvsp[-1].typeInfo).val_bool){
                                             (yyvsp[-1].typeInfo).val_int = 1;
@@ -3071,10 +3073,10 @@ yyreduce:
                                 }
                     else {
                         (yyval.typeInfo).type = FLOAT;
-                        if((yyvsp[-1].typeInfo).val_int != 0){
+                        if((yyvsp[-1].typeInfo).type == INT){
                             (yyvsp[-1].typeInfo).val_float = (float)(yyvsp[-1].typeInfo).val_int;
                         }
-                        if((yyvsp[0].typeInfo).val_int != 0){
+                        if((yyvsp[0].typeInfo).type == INT){
                             (yyvsp[0].typeInfo).val_float = (float)(yyvsp[0].typeInfo).val_int;
                         }
                         if((yyvsp[0].typeInfo).opType == ARITHMETIC_OP_ADD){
@@ -3089,14 +3091,14 @@ yyreduce:
                     (yyval.typeInfo).opType = (yyvsp[-2].num);
                         
 				}
-                printf("%d, %f \n", (yyval.typeInfo).val_int, (yyval.typeInfo).val_float);
+                //printf("%d, %f \n", $$.val_int, $$.val_float);
                     }
                 }
-#line 3096 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3098 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 1611 "zhangy.y" /* yacc.c:1646  */
+#line 1613 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP_LIST", "epsilon");
 			    (yyval.typeInfo).type = NOT_APPLICABLE;
@@ -3105,18 +3107,18 @@ yyreduce:
 			    (yyval.typeInfo).isParam = false;
                 
                 }
-#line 3109 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3111 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 1622 "zhangy.y" /* yacc.c:1646  */
+#line 1624 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("TERM",
                               "FACTOR MULT_OP_LIST");
-                              
+                  
 			    if ((yyvsp[0].typeInfo).type != NOT_APPLICABLE)
 			    {
-                printf("HERE 1111\n");
+                //printf("HERE 1111\n");
 				if(isInvalidOperandType((yyvsp[-1].typeInfo).type))
                         semanticError(1,
 				    ERR_MUST_BE_INT_FLOAT_OR_BOOL);
@@ -3128,7 +3130,7 @@ yyreduce:
                     	(yyval.typeInfo).isParam = false;
 				if (isLogical((yyvsp[0].typeInfo).opType)){
                   (yyval.typeInfo).type = BOOL;
-                  printf("1 and 2: %s and %s\n\n", (yyvsp[-1].typeInfo).val_bool?"TRUE":"FALSE", (yyvsp[0].typeInfo).val_bool?"TRUE":"FALSE");
+                  //printf("1 and 2: %s and %s\n\n", $1.val_bool?"TRUE":"FALSE", $2.val_bool?"TRUE":"FALSE");
                         if(((yyvsp[-1].typeInfo).type == FLOAT and (yyvsp[-1].typeInfo).val_float == 0) 
                         || ((yyvsp[-1].typeInfo).type == INT and (yyvsp[-1].typeInfo).val_int == 0)){
                             (yyvsp[-1].typeInfo).val_bool = false;
@@ -3143,18 +3145,19 @@ yyreduce:
                         || ((yyvsp[0].typeInfo).type == INT and (yyvsp[0].typeInfo).val_int != 0)){
                             (yyvsp[0].typeInfo).val_bool = true;
                         } 
-                        printf("type 1 and 2: %d and %d\n\n", (yyvsp[-1].typeInfo).type, (yyvsp[0].typeInfo).type);
-                  printf("1 and 2: %s and %s\n\n", (yyvsp[-1].typeInfo).val_bool?"TRUE":"FALSE", (yyvsp[0].typeInfo).val_bool?"TRUE":"FALSE");
+                        //printf("type 1 and 2: %d and %d\n\n", $1.type, $2.type);
+                  //printf("1 and 2: %s and %s\n\n", $1.val_bool?"TRUE":"FALSE", $2.val_bool?"TRUE":"FALSE");
                   if((yyvsp[0].typeInfo).opType == LOGICAL_OP_AND){
                     (yyval.typeInfo).val_bool = (yyvsp[-1].typeInfo).val_bool && (yyvsp[0].typeInfo).val_bool;
                   }else if((yyvsp[0].typeInfo).opType == LOGICAL_OP_OR){
                     (yyval.typeInfo).val_bool = (yyvsp[-1].typeInfo).val_bool || (yyvsp[0].typeInfo).val_bool;
                   }
-                  printf("it 4 is opType: %d\n", (yyvsp[0].typeInfo).opType);
-                  printf("the boolean value here is %s", (yyval.typeInfo).val_bool?"TRUE":"FALSE");
+                  //printf("it 4 is opType: %d\n", $2.opType);
+                  //printf("the boolean value here is %s", $$.val_bool?"TRUE":"FALSE");
                 }
 				else
 				{
+                //printf("two values here!!!!!\n %f %f type is: %d %d \n", $1.val_float, $2.val_float, $1.type, $2.type);
                                      if((yyvsp[0].typeInfo).type==BOOL){
                                         if((yyvsp[0].typeInfo).val_bool){
                                             (yyvsp[0].typeInfo).val_int = 1;
@@ -3181,6 +3184,7 @@ yyreduce:
                     if((yyvsp[0].typeInfo).opType == ARITHMETIC_OP_MUL){
                         (yyval.typeInfo).val_int = (yyvsp[-1].typeInfo).val_int * (yyvsp[0].typeInfo).val_int;
                     }else if((yyvsp[0].typeInfo).opType == ARITHMETIC_OP_DIV){
+                        //printf("Doing division here!!!!!\n %f %f", $1.val_float, $2.val_float);
                         if((yyvsp[0].typeInfo).val_int == 0){
                             yyerror("Attempted division by zero");                          
                         }else{
@@ -3189,15 +3193,16 @@ yyreduce:
                     }else if((yyvsp[0].typeInfo).opType == ARITHMETIC_OP_MOD){
                         (yyval.typeInfo).val_int = (yyvsp[-1].typeInfo).val_int % (yyvsp[0].typeInfo).val_int;
                     }else if((yyvsp[0].typeInfo).opType == ARITHMETIC_OP_POW){
+                        //printf("INT POWER %d %d\n", $1.val_int,$2.val_int);
                         (yyval.typeInfo).val_int = pow((yyvsp[-1].typeInfo).val_int,(yyvsp[0].typeInfo).val_int);
                     }
                        }
                        else{
                     (yyval.typeInfo).type = FLOAT;
-                    if((yyvsp[-1].typeInfo).val_int != 0){
+                    if((yyvsp[-1].typeInfo).type == INT){
                         (yyvsp[-1].typeInfo).val_float = (float)(yyvsp[-1].typeInfo).val_int;
                     }
-                    if((yyvsp[0].typeInfo).val_int != 0){
+                    if((yyvsp[0].typeInfo).type == INT){
                         (yyvsp[0].typeInfo).val_float = (float)(yyvsp[0].typeInfo).val_int;
                     }                    
                     if((yyvsp[0].typeInfo).opType == ARITHMETIC_OP_MUL){
@@ -3211,6 +3216,8 @@ yyreduce:
                     }else if((yyvsp[0].typeInfo).opType == ARITHMETIC_OP_MOD){
                         (yyval.typeInfo).val_float = fmod((yyvsp[-1].typeInfo).val_float, (yyvsp[0].typeInfo).val_float);
                     }else if((yyvsp[0].typeInfo).opType == ARITHMETIC_OP_POW){
+                        //printf("INT POWER %d %d\n", $1.val_int,$2.val_int);
+                        //printf("INT POWER %f %f\n", $1.val_float,$2.val_float);
                         (yyval.typeInfo).val_float = pow((yyvsp[-1].typeInfo).val_float,(yyvsp[0].typeInfo).val_float);
                     }    
 				}
@@ -3218,7 +3225,7 @@ yyreduce:
 			    }
                     else 
 			    {
-                printf("HERE 2222\n");
+                //printf("HERE 2222\n");
                     (yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
                     (yyval.typeInfo).numParams = (yyvsp[-1].typeInfo).numParams;
                     (yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
@@ -3255,11 +3262,11 @@ yyreduce:
 			    }
                 (yyval.typeInfo).opType = (yyvsp[0].typeInfo).opType;
                 }
-#line 3259 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3266 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 1770 "zhangy.y" /* yacc.c:1646  */
+#line 1777 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP_LIST",
                               "MULT_OP FACTOR MULT_OP_LIST");
@@ -3301,7 +3308,7 @@ yyreduce:
                 else
 			    {                
                     if ((yyvsp[0].typeInfo).type == NOT_APPLICABLE){
-                        printf("%s\n", "HEre 1");
+                        //printf("%s %d\n", "HERE the factor got is ", $2.val_int);
                         (yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
                         (yyval.typeInfo).numParams = (yyvsp[-1].typeInfo).numParams;
                         (yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
@@ -3313,7 +3320,9 @@ yyreduce:
                         strcpy((yyval.typeInfo).val_string, (yyvsp[-1].typeInfo).val_string);
                         (yyval.typeInfo).is_null= (yyvsp[-1].typeInfo).is_null;
                         
-                        
+                        if((yyval.typeInfo).type == INT){
+                            (yyval.typeInfo).val_float = (float)(yyval.typeInfo).val_int;
+                        }
                         (yyval.typeInfo).rlist = new RList;
                         RList *temp = (yyvsp[-1].typeInfo).rlist;
                         RList *temp_new = (yyval.typeInfo).rlist;
@@ -3335,7 +3344,7 @@ yyreduce:
                     }
                     else
                     {
-                        printf("%s\n", "HEre 2");
+                        //printf("%s\n", "HEre 2");
                           if(isInvalidOperandType((yyvsp[0].typeInfo).type))                    				  semanticError(argWithErr,
                         ERR_MUST_BE_INT_FLOAT_OR_BOOL);
                       if (isLogical((yyvsp[-2].num)))
@@ -3382,10 +3391,10 @@ yyreduce:
                         }
                       else{
                         (yyval.typeInfo).type = FLOAT;
-                        if((yyvsp[-1].typeInfo).val_int != 0){
+                        if((yyvsp[-1].typeInfo).type == INT){
                             (yyvsp[-1].typeInfo).val_float = (float)(yyvsp[-1].typeInfo).val_int;
                         }
-                        if((yyvsp[0].typeInfo).val_int != 0){
+                        if((yyvsp[0].typeInfo).type == INT){
                             (yyvsp[0].typeInfo).val_float = (float)(yyvsp[0].typeInfo).val_int;
                         }                    
                         if((yyvsp[0].typeInfo).opType == ARITHMETIC_OP_MUL){
@@ -3406,14 +3415,14 @@ yyreduce:
                       (yyval.typeInfo).opType = (yyvsp[-2].num);
                         }
                     }
-                    printf("1 and: %s and\n\n", (yyvsp[-1].typeInfo).val_bool?"TRUE":"FALSE");
+                    //printf("1 and: %s and\n\n", $2.val_bool?"TRUE":"FALSE");
 
                 }
-#line 3413 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3422 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 1920 "zhangy.y" /* yacc.c:1646  */
+#line 1929 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP_LIST", "epsilon");
 			    (yyval.typeInfo).type = NOT_APPLICABLE;
@@ -3423,11 +3432,11 @@ yyreduce:
                     
                     
                 }
-#line 3427 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3436 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 1932 "zhangy.y" /* yacc.c:1646  */
+#line 1941 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FACTOR", "VAR");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -3476,11 +3485,11 @@ yyreduce:
                         temp_new = temp_new->rlist;
                     }
                 }
-#line 3480 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3489 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 1981 "zhangy.y" /* yacc.c:1646  */
+#line 1990 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FACTOR", "CONST");
                     (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
@@ -3488,13 +3497,14 @@ yyreduce:
                     (yyval.typeInfo).returnType = NOT_APPLICABLE;
                     (yyval.typeInfo).isParam = false;
                 }
-#line 3492 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3501 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 1989 "zhangy.y" /* yacc.c:1646  */
+#line 1998 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FACTOR", "( EXPR )");
+                    //printf("Factor is got here!!!%d\n", $2.val_int);
                     (yyval.typeInfo).type = (yyvsp[-1].typeInfo).type;
                     (yyval.typeInfo).numParams = (yyvsp[-1].typeInfo).numParams;
                     (yyval.typeInfo).returnType = (yyvsp[-1].typeInfo).returnType;
@@ -3526,170 +3536,160 @@ yyreduce:
                         temp_new = temp_new->rlist;
                     }                    
                 }
-#line 3530 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3540 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 2023 "zhangy.y" /* yacc.c:1646  */
+#line 2033 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("FACTOR", "! FACTOR");
-                    (yyval.typeInfo).type = (yyvsp[0].typeInfo).type;
+                    (yyval.typeInfo).type = BOOL;
                     (yyval.typeInfo).numParams = (yyvsp[0].typeInfo).numParams;
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
                     (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
-                    (yyval.typeInfo).val_bool = (yyvsp[0].typeInfo).val_bool?false:true;
-                    printf("The final answer %s\n, after NOT %s\n", (yyvsp[0].typeInfo).val_bool?"true":"false", (yyvsp[0].typeInfo).val_bool?"false":"true");
+                    if((yyvsp[0].typeInfo).type == BOOL){
+                        (yyval.typeInfo).val_bool = (yyvsp[0].typeInfo).val_bool?false:true;
+                    }else if((yyvsp[0].typeInfo).type == INT){
+                        (yyval.typeInfo).val_bool = (yyvsp[0].typeInfo).val_int!=0?false:true;
+                    }else if((yyvsp[0].typeInfo).type == FLOAT){
+                        (yyval.typeInfo).val_bool = (yyvsp[0].typeInfo).val_float==0?true:false;
+                    }
+                    //printf("The final answer %s\n, after NOT %s\n", $2.val_bool?"true":"false", $2.val_bool?"false":"true");
                 }
-#line 3544 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3560 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 2035 "zhangy.y" /* yacc.c:1646  */
+#line 2051 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP", "+");
                     (yyval.num) = ARITHMETIC_OP_ADD;
                 }
-#line 3553 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3569 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 2040 "zhangy.y" /* yacc.c:1646  */
+#line 2056 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP", "-");
                     (yyval.num) = ARITHMETIC_OP_SUB;
                 }
-#line 3562 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3578 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 2045 "zhangy.y" /* yacc.c:1646  */
+#line 2061 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ADD_OP", "|");
                     (yyval.num) = LOGICAL_OP_OR;
                 }
-#line 3571 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3587 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 2052 "zhangy.y" /* yacc.c:1646  */
+#line 2068 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "*");
                     (yyval.num) = ARITHMETIC_OP_MUL;
                     
                 }
-#line 3581 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3597 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 2058 "zhangy.y" /* yacc.c:1646  */
+#line 2074 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "/");
                     (yyval.num) = ARITHMETIC_OP_DIV;
                 }
-#line 3590 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3606 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 2063 "zhangy.y" /* yacc.c:1646  */
+#line 2079 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "&");
                     (yyval.num) = LOGICAL_OP_AND;
                 }
-#line 3599 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3615 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 2068 "zhangy.y" /* yacc.c:1646  */
+#line 2084 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "\%\%");
                     (yyval.num) = ARITHMETIC_OP_MOD;
                 }
-#line 3608 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3624 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 2073 "zhangy.y" /* yacc.c:1646  */
+#line 2089 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("MULT_OP", "^");
                     (yyval.num) = ARITHMETIC_OP_POW;
                 }
-#line 3617 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3633 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 2080 "zhangy.y" /* yacc.c:1646  */
+#line 2096 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", "<");
                     (yyval.num) = RELATIONAL_OP_LESS;
                 }
-#line 3626 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3642 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 2085 "zhangy.y" /* yacc.c:1646  */
+#line 2101 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", ">");
                     (yyval.num) = RELATIONAL_OP_GREATER;
                 }
-#line 3635 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3651 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 2090 "zhangy.y" /* yacc.c:1646  */
+#line 2106 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", "<=");
                     (yyval.num) = RELATIONAL_OP_LEQ;
                 }
-#line 3644 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3660 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 2095 "zhangy.y" /* yacc.c:1646  */
+#line 2111 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", ">=");
                     (yyval.num) = RELATIONAL_OP_GEQ;
                 }
-#line 3653 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3669 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 2100 "zhangy.y" /* yacc.c:1646  */
+#line 2116 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", "==");
                     (yyval.num) = RELATIONAL_OP_EQL;
                 }
-#line 3662 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3678 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 2105 "zhangy.y" /* yacc.c:1646  */
+#line 2121 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("REL_OP", "!=");
                     (yyval.num) = RELATIONAL_OP_NEQ;
                 }
-#line 3671 "zhangy.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 84:
-#line 2112 "zhangy.y" /* yacc.c:1646  */
-    {
-                    printRule("VAR", "ENTIRE_VAR");
-                    (yyval.typeInfo).type == (yyvsp[0].typeInfo).type;
-                    (yyval.typeInfo).numParams = (yyvsp[0].typeInfo).numParams;
-                    (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
-                    (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
-                    (yyval.typeInfo).val_bool = (yyvsp[0].typeInfo).val_bool;
-                    (yyval.typeInfo).val_int = (yyvsp[0].typeInfo).val_int;
-                    (yyval.typeInfo).val_float = (yyvsp[0].typeInfo).val_float;
-                    strcpy((yyval.typeInfo).val_string, (yyvsp[0].typeInfo).val_string);                    
-                }
 #line 3687 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
-  case 85:
-#line 2124 "zhangy.y" /* yacc.c:1646  */
+  case 84:
+#line 2128 "zhangy.y" /* yacc.c:1646  */
     {
-                    printRule("VAR", "SINGLE_ELEMENT");
+                    printRule("VAR", "ENTIRE_VAR");
                     (yyval.typeInfo).type == (yyvsp[0].typeInfo).type;
                     (yyval.typeInfo).numParams = (yyvsp[0].typeInfo).numParams;
                     (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
@@ -3702,8 +3702,24 @@ yyreduce:
 #line 3703 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
+  case 85:
+#line 2140 "zhangy.y" /* yacc.c:1646  */
+    {
+                    printRule("VAR", "SINGLE_ELEMENT");
+                    (yyval.typeInfo).type == (yyvsp[0].typeInfo).type;
+                    (yyval.typeInfo).numParams = (yyvsp[0].typeInfo).numParams;
+                    (yyval.typeInfo).returnType = (yyvsp[0].typeInfo).returnType;
+                    (yyval.typeInfo).isParam = (yyvsp[0].typeInfo).isParam;
+                    (yyval.typeInfo).val_bool = (yyvsp[0].typeInfo).val_bool;
+                    (yyval.typeInfo).val_int = (yyvsp[0].typeInfo).val_int;
+                    (yyval.typeInfo).val_float = (yyvsp[0].typeInfo).val_float;
+                    strcpy((yyval.typeInfo).val_string, (yyvsp[0].typeInfo).val_string);                    
+                }
+#line 3719 "zhangy.tab.c" /* yacc.c:1646  */
+    break;
+
   case 86:
-#line 2139 "zhangy.y" /* yacc.c:1646  */
+#line 2155 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("SINGLE_ELEMENT", "IDENT"
                               " [[ EXPR ]]");
@@ -3737,11 +3753,11 @@ yyreduce:
                     (yyval.typeInfo).returnType = NOT_APPLICABLE;
                     (yyval.typeInfo).isParam = false;
                 }
-#line 3741 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3757 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 2175 "zhangy.y" /* yacc.c:1646  */
+#line 2191 "zhangy.y" /* yacc.c:1646  */
     {
                     printRule("ENTIRE_VAR", "IDENT");
                     TYPE_INFO exprTypeInfo = 
@@ -3780,11 +3796,11 @@ yyreduce:
                     }
                     
                 }
-#line 3784 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3800 "zhangy.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 3788 "zhangy.tab.c" /* yacc.c:1646  */
+#line 3804 "zhangy.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -4012,7 +4028,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 2215 "zhangy.y" /* yacc.c:1906  */
+#line 2231 "zhangy.y" /* yacc.c:1906  */
 
 
 #include "lex.yy.c"
@@ -4163,7 +4179,7 @@ void printValue(TYPE_INFO type_info)
             printf("%s\n", type_info.val_string);
         }else if(type_info.type == FLOAT)
         {
-            printf("%.2f\n", type_info.val_float);
+            printf("%6.2f\n", type_info.val_float);
         }else if(type_info.type == BOOL)
         {
             printf("%s\n",type_info.val_bool?"TRUE":"FALSE");

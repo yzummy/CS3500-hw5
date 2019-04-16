@@ -1,5 +1,4 @@
-HERE 2222						      |	"Enter a float (e.g., -2.71): "
-the 2 boolean value here is FALSE"Enter a float (e.g., -2.71) <
+"Enter a float (e.g., -2.71): "					"Enter a float (e.g., -2.71): "
 
 ---- Completed parsing ----					---- Completed parsing ----
 

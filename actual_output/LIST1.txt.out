@@ -1,19 +1,4 @@
 
-___Entering new scope...
-
-TOKEN: LIST 		 LEXEME: list
-TOKEN: LPAREN 		 LEXEME: (
-TOKEN: INTCONST 		 LEXEME: 42
-CONST -> INTCONST
-TOKEN: RPAREN 		 LEXEME: )
-CONST_LIST -> CONST
-LIST_EXPR -> LIST ( CONST_LIST )
-EXPR -> LIST_EXPR
-START -> EXPR
-
 ---- Completed parsing ----
 
 Value of the expression is: ( 42 )
-
-___Exiting scope...
-

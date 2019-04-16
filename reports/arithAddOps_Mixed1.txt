@@ -1,35 +1,4 @@
 
-___Entering new scope...				      <
-							      <
-TOKEN: FLOATCONST 		 LEXEME: 3.14		      <
-CONST -> FLOATCONST					      <
-FACTOR -> CONST						      <
-TOKEN: SUB 		 LEXEME: -			      <
-MULT_OP_LIST -> epsilon					      <
-TERM -> FACTOR MULT_OP_LIST				      <
-HERE 2222						      <
-ADD_OP -> -						      <
-TOKEN: INTCONST 		 LEXEME: 7		      <
-CONST -> INTCONST					      <
-FACTOR -> CONST						      <
-MULT_OP_LIST -> epsilon					      <
-TERM -> FACTOR MULT_OP_LIST				      <
-HERE 2222						      <
-ADD_OP_LIST -> epsilon					      <
-ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST			      <
-it 3 is optype logical 0 				      <
-is logical FALSE					      <
-here 666667, 7.000000 					      <
-SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
-it 1 is optype logical 8float calculation here: 3.140000 8 7. <
-int calculation here: 0 8 7 = 0				      <
-ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
-EXPR -> ARITHLOGIC_EXPR					      <
-START -> EXPR						      <
-							      <
 ---- Completed parsing ----					---- Completed parsing ----
 
-Value of the expression is: -3.86				Value of the expression is:  -3.86
-							      <
-___Exiting scope...					      <
-							      <
+Value of the expression is:  -3.86				Value of the expression is:  -3.86

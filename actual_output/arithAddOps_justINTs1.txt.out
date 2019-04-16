@@ -1,35 +1,4 @@
 
-___Entering new scope...
-
-TOKEN: INTCONST 		 LEXEME: 7
-CONST -> INTCONST
-FACTOR -> CONST
-TOKEN: ADD 		 LEXEME: +
-MULT_OP_LIST -> epsilon
-TERM -> FACTOR MULT_OP_LIST
-HERE 2222
-ADD_OP -> +
-TOKEN: INTCONST 		 LEXEME: 5
-CONST -> INTCONST
-FACTOR -> CONST
-MULT_OP_LIST -> epsilon
-TERM -> FACTOR MULT_OP_LIST
-HERE 2222
-ADD_OP_LIST -> epsilon
-ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST
-it 3 is optype logical 0 
-is logical FALSE
-here 666665, 5.000000 
-SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
-it 1 is optype logical 7float calculation here: 7.000000 7 5.000000 = 7.000000
-int calculation here: 7 7 5 = 12
-ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
-EXPR -> ARITHLOGIC_EXPR
-START -> EXPR
-
 ---- Completed parsing ----
 
 Value of the expression is: 12
-
-___Exiting scope...
-

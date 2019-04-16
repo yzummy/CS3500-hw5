@@ -1,6 +1,5 @@
-HERE 2222						      |	"Enter an integer (e.g., 123): "
-the 2 boolean value here is FALSE"Enter an integer (e.g., 123 <
+"Enter an integer (e.g., 123): "				"Enter an integer (e.g., 123): "
 
 ---- Completed parsing ----					---- Completed parsing ----
 
-Value of the expression is: 				      |	Value of the expression is: 123
+Value of the expression is: -2.71			      |	Value of the expression is: 123

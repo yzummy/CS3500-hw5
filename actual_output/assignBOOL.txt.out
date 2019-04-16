@@ -1,27 +1,4 @@
 
-___Entering new scope...
-
-TOKEN: IDENT 		 LEXEME: fluffy
-TOKEN: ASSIGN 		 LEXEME: =
-INDEX ->  epsilon
-ASSIGNMENT_EXPR -> IDENT INDEX ASSIGN EXPR
-___Adding fluffy to symbol table
-TOKEN: TRUE 		 LEXEME: TRUE
-CONST -> TRUE
-FACTOR -> CONST
-MULT_OP_LIST -> epsilon
-TERM -> FACTOR MULT_OP_LIST
-HERE 2222
-ADD_OP_LIST -> epsilon
-SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
-ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
-EXPR -> ARITHLOGIC_EXPR
-EXPR -> ASSIGNMENT_EXPR
-START -> EXPR
-
 ---- Completed parsing ----
 
 Value of the expression is: TRUE
-
-___Exiting scope...
-

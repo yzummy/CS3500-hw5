@@ -1,21 +1,4 @@
 
-___Entering new scope...
-
-TOKEN: FLOATCONST 		 LEXEME: -12.342
-CONST -> FLOATCONST
-FACTOR -> CONST
-MULT_OP_LIST -> epsilon
-TERM -> FACTOR MULT_OP_LIST
-HERE 2222
-ADD_OP_LIST -> epsilon
-SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
-ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
-EXPR -> ARITHLOGIC_EXPR
-START -> EXPR
-
 ---- Completed parsing ----
 
 Value of the expression is: -12.34
-
-___Exiting scope...
-

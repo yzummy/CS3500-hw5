@@ -1,37 +1,4 @@
 
-___Entering new scope...
-
-TOKEN: TRUE 		 LEXEME: TRUE
-CONST -> TRUE
-FACTOR -> CONST
-TOKEN: AND 		 LEXEME: &
-MULT_OP -> &
-TOKEN: FALSE 		 LEXEME: FALSE
-CONST -> FALSE
-FACTOR -> CONST
-MULT_OP_LIST -> epsilon
-MULT_OP_LIST -> MULT_OP FACTOR MULT_OP_LIST
-HEre 1
-1 and: FALSE and
-
-TERM -> FACTOR MULT_OP_LIST
-HERE 1111
-1 and 2: TRUE and FALSE
-
-type 1 and 2: 8 and 8
-
-1 and 2: TRUE and FALSE
-
-it 4 is opType: 17
-the boolean value here is FALSEADD_OP_LIST -> epsilon
-SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
-ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
-EXPR -> ARITHLOGIC_EXPR
-START -> EXPR
-
 ---- Completed parsing ----
 
 Value of the expression is: FALSE
-
-___Exiting scope...
-

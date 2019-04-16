@@ -77,7 +77,7 @@ const string ERR_MSG[NUM_ERR_MESSAGES] = {
 };
 
 // constant to suppress token printing
-const bool suppressTokenOutput = false;
+const bool suppressTokenOutput = true;
 
 int line_num = 1;
 int numExprs = 0;
@@ -1306,7 +1306,7 @@ N_ARITHLOGIC_EXPR : N_SIMPLE_ARITHLOGIC
                    	semanticError(2,
 				    ERR_MUST_BE_INT_FLOAT_OR_BOOL);
                     
-                    printf("in expression %f and %f\n", $1.val_float, $3.val_float);
+                    //printf("in expression %f and %f\n", $1.val_float, $3.val_float);
                     $$.type = BOOL; 
                     $$.numParams = NOT_APPLICABLE;
                     $$.returnType = NOT_APPLICABLE;
@@ -1357,7 +1357,7 @@ N_SIMPLE_ARITHLOGIC : N_TERM N_ADD_OP_LIST
                               "TERM ADD_OP_LIST");
 			    if ($2.type != NOT_APPLICABLE)
 			    {
-                    printf("it 1 is optype logical %d", $2.opType);
+                    //printf("it 1 is optype logical %d", $2.opType);
                       if(isInvalidOperandType($1.type))
                         semanticError(1,
 				    ERR_MUST_BE_INT_FLOAT_OR_BOOL);
@@ -1383,7 +1383,7 @@ N_SIMPLE_ARITHLOGIC : N_TERM N_ADD_OP_LIST
                                         }
                                     }
                 if(isLogical($2.opType)){
-                    printf("it 2 is optype logical %d", $2.opType);
+                    //printf("it 2 is optype logical %d", $2.opType);
                     $$.type = BOOL;
                     if(($1.type == FLOAT and $1.val_float == 0) 
                         || ($1.type == INT and $1.val_int == 0)){
@@ -1406,6 +1406,8 @@ N_SIMPLE_ARITHLOGIC : N_TERM N_ADD_OP_LIST
 				else if (isIntCompatible($1.type) &&
 				         isIntCompatible($2.type))
                             { 
+                            
+                            //printf("int calculation here!!!!\n");
                         
                                     $$.type = INT;
                                     if($2.opType == ARITHMETIC_OP_ADD){
@@ -1416,10 +1418,10 @@ N_SIMPLE_ARITHLOGIC : N_TERM N_ADD_OP_LIST
                             }
 				else{
                         $$.type = FLOAT;
-                        if($1.val_int != 0){
+                        if($1.type == INT){
                             $1.val_float = (float)$1.val_int;
                         }
-                        if($2.val_int != 0){
+                        if($2.type == INT){
                             $2.val_float = (float)$2.val_int;
                         }
                         if($2.opType == ARITHMETIC_OP_ADD){
@@ -1428,8 +1430,8 @@ N_SIMPLE_ARITHLOGIC : N_TERM N_ADD_OP_LIST
                             $$.val_float=$1.val_float-$2.val_float;
                         }   
                 }
-                printf("float calculation here: %f %d %f = %f\n", $1.val_float, $2.opType, $2.val_float, $$.val_float);
-                printf("int calculation here: %d %d %d = %d\n", $1.val_int, $2.opType, $2.val_int, $$.val_int);
+                //printf("float calculation here: %f %d %f = %f\n", $1.val_float, $2.opType, $2.val_float, $$.val_float);
+                //printf("int calculation here: %d %d %d = %d\n", $1.val_int, $2.opType, $2.val_int, $$.val_int);
 				$$.numParams = NOT_APPLICABLE;
 				$$.returnType = NOT_APPLICABLE;
                      	$$.isParam = false;
@@ -1484,12 +1486,12 @@ N_ADD_OP_LIST	: N_ADD_OP N_TERM N_ADD_OP_LIST
                     $$.isParam = false;
                 $$.opType = $1;
                 
-                printf("it 3 is optype logical %d \n", $3.opType);
-                printf("is logical %s\n", isLogical($3.opType)?"TRUE":"FALSE");
+                //printf("it 3 is optype logical %d \n", $3.opType);
+                //printf("is logical %s\n", isLogical($3.opType)?"TRUE":"FALSE");
 			    if (isLogical($3.opType))
                 {
-                printf("55555 %f\n", $3.val_float);
-                printf("here 55555");
+                //printf("55555 %f\n", $3.val_float);
+                //printf("here 55555");
                     $$.type = BOOL;
                     if(($3.type == FLOAT and $3.val_float == 0) 
                         || ($3.type == INT and $3.val_int == 0)){
@@ -1517,7 +1519,7 @@ N_ADD_OP_LIST	: N_ADD_OP N_TERM N_ADD_OP_LIST
                 }
                 else
 			    {
-                                printf("here 66666");
+                                //printf("here 66666");
 
 				if ($3.type == NOT_APPLICABLE)
                 {
@@ -1554,7 +1556,7 @@ N_ADD_OP_LIST	: N_ADD_OP N_TERM N_ADD_OP_LIST
 				}
                 else
 				{
-                    printf("Convert bool to float and int \n");
+                    //printf("Convert bool to float and int \n");
                                      if($2.type==BOOL){
                                         if($2.val_bool){
                                             $2.val_int = 1;
@@ -1586,10 +1588,10 @@ N_ADD_OP_LIST	: N_ADD_OP N_TERM N_ADD_OP_LIST
                                 }
                     else {
                         $$.type = FLOAT;
-                        if($2.val_int != 0){
+                        if($2.type == INT){
                             $2.val_float = (float)$2.val_int;
                         }
-                        if($3.val_int != 0){
+                        if($3.type == INT){
                             $3.val_float = (float)$3.val_int;
                         }
                         if($3.opType == ARITHMETIC_OP_ADD){
@@ -1604,7 +1606,7 @@ N_ADD_OP_LIST	: N_ADD_OP N_TERM N_ADD_OP_LIST
                     $$.opType = $1;
                         
 				}
-                printf("%d, %f \n", $$.val_int, $$.val_float);
+                //printf("%d, %f \n", $$.val_int, $$.val_float);
                     }
                 }
                 | /* epsilon */
@@ -1622,10 +1624,10 @@ N_TERM		: N_FACTOR N_MULT_OP_LIST
                 {
                     printRule("TERM",
                               "FACTOR MULT_OP_LIST");
-                              
+                  
 			    if ($2.type != NOT_APPLICABLE)
 			    {
-                printf("HERE 1111\n");
+                //printf("HERE 1111\n");
 				if(isInvalidOperandType($1.type))
                         semanticError(1,
 				    ERR_MUST_BE_INT_FLOAT_OR_BOOL);
@@ -1637,7 +1639,7 @@ N_TERM		: N_FACTOR N_MULT_OP_LIST
                     	$$.isParam = false;
 				if (isLogical($2.opType)){
                   $$.type = BOOL;
-                  printf("1 and 2: %s and %s\n\n", $1.val_bool?"TRUE":"FALSE", $2.val_bool?"TRUE":"FALSE");
+                  //printf("1 and 2: %s and %s\n\n", $1.val_bool?"TRUE":"FALSE", $2.val_bool?"TRUE":"FALSE");
                         if(($1.type == FLOAT and $1.val_float == 0) 
                         || ($1.type == INT and $1.val_int == 0)){
                             $1.val_bool = false;
@@ -1652,18 +1654,19 @@ N_TERM		: N_FACTOR N_MULT_OP_LIST
                         || ($2.type == INT and $2.val_int != 0)){
                             $2.val_bool = true;
                         } 
-                        printf("type 1 and 2: %d and %d\n\n", $1.type, $2.type);
-                  printf("1 and 2: %s and %s\n\n", $1.val_bool?"TRUE":"FALSE", $2.val_bool?"TRUE":"FALSE");
+                        //printf("type 1 and 2: %d and %d\n\n", $1.type, $2.type);
+                  //printf("1 and 2: %s and %s\n\n", $1.val_bool?"TRUE":"FALSE", $2.val_bool?"TRUE":"FALSE");
                   if($2.opType == LOGICAL_OP_AND){
                     $$.val_bool = $1.val_bool && $2.val_bool;
                   }else if($2.opType == LOGICAL_OP_OR){
                     $$.val_bool = $1.val_bool || $2.val_bool;
                   }
-                  printf("it 4 is opType: %d\n", $2.opType);
-                  printf("the boolean value here is %s", $$.val_bool?"TRUE":"FALSE");
+                  //printf("it 4 is opType: %d\n", $2.opType);
+                  //printf("the boolean value here is %s", $$.val_bool?"TRUE":"FALSE");
                 }
 				else
 				{
+                //printf("two values here!!!!!\n %f %f type is: %d %d \n", $1.val_float, $2.val_float, $1.type, $2.type);
                                      if($2.type==BOOL){
                                         if($2.val_bool){
                                             $2.val_int = 1;
@@ -1690,6 +1693,7 @@ N_TERM		: N_FACTOR N_MULT_OP_LIST
                     if($2.opType == ARITHMETIC_OP_MUL){
                         $$.val_int = $1.val_int * $2.val_int;
                     }else if($2.opType == ARITHMETIC_OP_DIV){
+                        //printf("Doing division here!!!!!\n %f %f", $1.val_float, $2.val_float);
                         if($2.val_int == 0){
                             yyerror("Attempted division by zero");                          
                         }else{
@@ -1698,15 +1702,16 @@ N_TERM		: N_FACTOR N_MULT_OP_LIST
                     }else if($2.opType == ARITHMETIC_OP_MOD){
                         $$.val_int = $1.val_int % $2.val_int;
                     }else if($2.opType == ARITHMETIC_OP_POW){
+                        //printf("INT POWER %d %d\n", $1.val_int,$2.val_int);
                         $$.val_int = pow($1.val_int,$2.val_int);
                     }
                        }
                        else{
                     $$.type = FLOAT;
-                    if($1.val_int != 0){
+                    if($1.type == INT){
                         $1.val_float = (float)$1.val_int;
                     }
-                    if($2.val_int != 0){
+                    if($2.type == INT){
                         $2.val_float = (float)$2.val_int;
                     }                    
                     if($2.opType == ARITHMETIC_OP_MUL){
@@ -1720,6 +1725,8 @@ N_TERM		: N_FACTOR N_MULT_OP_LIST
                     }else if($2.opType == ARITHMETIC_OP_MOD){
                         $$.val_float = fmod($1.val_float, $2.val_float);
                     }else if($2.opType == ARITHMETIC_OP_POW){
+                        //printf("INT POWER %d %d\n", $1.val_int,$2.val_int);
+                        //printf("INT POWER %f %f\n", $1.val_float,$2.val_float);
                         $$.val_float = pow($1.val_float,$2.val_float);
                     }    
 				}
@@ -1727,7 +1734,7 @@ N_TERM		: N_FACTOR N_MULT_OP_LIST
 			    }
                     else 
 			    {
-                printf("HERE 2222\n");
+                //printf("HERE 2222\n");
                     $$.type = $1.type;
                     $$.numParams = $1.numParams;
                     $$.returnType = $1.returnType;
@@ -1808,7 +1815,7 @@ N_MULT_OP_LIST	: N_MULT_OP N_FACTOR N_MULT_OP_LIST
                 else
 			    {                
                     if ($3.type == NOT_APPLICABLE){
-                        printf("%s\n", "HEre 1");
+                        //printf("%s %d\n", "HERE the factor got is ", $2.val_int);
                         $$.type = $2.type;
                         $$.numParams = $2.numParams;
                         $$.returnType = $2.returnType;
@@ -1820,7 +1827,9 @@ N_MULT_OP_LIST	: N_MULT_OP N_FACTOR N_MULT_OP_LIST
                         strcpy($$.val_string, $2.val_string);
                         $$.is_null= $2.is_null;
                         
-                        
+                        if($$.type == INT){
+                            $$.val_float = (float)$$.val_int;
+                        }
                         $$.rlist = new RList;
                         RList *temp = $2.rlist;
                         RList *temp_new = $$.rlist;
@@ -1842,7 +1851,7 @@ N_MULT_OP_LIST	: N_MULT_OP N_FACTOR N_MULT_OP_LIST
                     }
                     else
                     {
-                        printf("%s\n", "HEre 2");
+                        //printf("%s\n", "HEre 2");
                           if(isInvalidOperandType($3.type))                    				  semanticError(argWithErr,
                         ERR_MUST_BE_INT_FLOAT_OR_BOOL);
                       if (isLogical($1))
@@ -1889,10 +1898,10 @@ N_MULT_OP_LIST	: N_MULT_OP N_FACTOR N_MULT_OP_LIST
                         }
                       else{
                         $$.type = FLOAT;
-                        if($2.val_int != 0){
+                        if($2.type == INT){
                             $2.val_float = (float)$2.val_int;
                         }
-                        if($3.val_int != 0){
+                        if($3.type == INT){
                             $3.val_float = (float)$3.val_int;
                         }                    
                         if($3.opType == ARITHMETIC_OP_MUL){
@@ -1913,7 +1922,7 @@ N_MULT_OP_LIST	: N_MULT_OP N_FACTOR N_MULT_OP_LIST
                       $$.opType = $1;
                         }
                     }
-                    printf("1 and: %s and\n\n", $2.val_bool?"TRUE":"FALSE");
+                    //printf("1 and: %s and\n\n", $2.val_bool?"TRUE":"FALSE");
 
                 }
                 | /* epsilon */
@@ -1988,6 +1997,7 @@ N_FACTOR		: N_VAR
                 | T_LPAREN N_EXPR T_RPAREN
                 {
                     printRule("FACTOR", "( EXPR )");
+                    //printf("Factor is got here!!!%d\n", $2.val_int);
                     $$.type = $2.type;
                     $$.numParams = $2.numParams;
                     $$.returnType = $2.returnType;
@@ -2022,12 +2032,18 @@ N_FACTOR		: N_VAR
                 | T_NOT N_FACTOR
                 {
                     printRule("FACTOR", "! FACTOR");
-                    $$.type = $2.type;
+                    $$.type = BOOL;
                     $$.numParams = $2.numParams;
                     $$.returnType = $2.returnType;
                     $$.isParam = $2.isParam;
-                    $$.val_bool = $2.val_bool?false:true;
-                    printf("The final answer %s\n, after NOT %s\n", $2.val_bool?"true":"false", $2.val_bool?"false":"true");
+                    if($2.type == BOOL){
+                        $$.val_bool = $2.val_bool?false:true;
+                    }else if($2.type == INT){
+                        $$.val_bool = $2.val_int!=0?false:true;
+                    }else if($2.type == FLOAT){
+                        $$.val_bool = $2.val_float==0?true:false;
+                    }
+                    //printf("The final answer %s\n, after NOT %s\n", $2.val_bool?"true":"false", $2.val_bool?"false":"true");
                 }
                 ;
 
@@ -2362,7 +2378,7 @@ void printValue(TYPE_INFO type_info)
             printf("%s\n", type_info.val_string);
         }else if(type_info.type == FLOAT)
         {
-            printf("%.2f\n", type_info.val_float);
+            printf("%6.2f\n", type_info.val_float);
         }else if(type_info.type == BOOL)
         {
             printf("%s\n",type_info.val_bool?"TRUE":"FALSE");

@@ -1,6 +1,5 @@
-HERE 2222						      |	"Enter a string (e.g., CS 3500): "
-the 2 boolean value here is FALSE"Enter a string (e.g., CS 35 <
+"Enter a string (e.g., CS 3500): "				"Enter a string (e.g., CS 3500): "
 
 ---- Completed parsing ----					---- Completed parsing ----
 
-Value of the expression is: 				      |	Value of the expression is: CS 3500
+Value of the expression is: 123				      |	Value of the expression is: CS 3500
