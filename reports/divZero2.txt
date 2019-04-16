@@ -1,4 +1,19 @@
-							      |	Line 2: Attempted division by zero
----- Completed parsing ----				      <
 							      <
- Value of the expression is: 2				      <
+___Entering new scope...				      <
+							      <
+TOKEN: INTCONST 		 LEXEME: 2		      <
+CONST -> INTCONST					      <
+FACTOR -> CONST						      <
+TOKEN: DIV 		 LEXEME: /			      <
+MULT_OP -> /						      <
+TOKEN: FALSE 		 LEXEME: FALSE			      <
+CONST -> FALSE						      <
+FACTOR -> CONST						      <
+MULT_OP_LIST -> epsilon					      <
+MULT_OP_LIST -> MULT_OP FACTOR MULT_OP_LIST		      <
+HEre 1							      <
+1 and: FALSE and					      <
+							      <
+TERM -> FACTOR MULT_OP_LIST				      <
+HERE 1111						      <
+Line 2: Attempted division by zero				Line 2: Attempted division by zero

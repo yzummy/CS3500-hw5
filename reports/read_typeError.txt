@@ -1,3 +1,7 @@
-"This is going to wait for you to enter something"		"This is going to wait for you to enter something"
-"Enter a string to see if it detects an error"			"Enter a string to see if it detects an error"
+HERE 2222						      |	"This is going to wait for you to enter something"
+the 2 boolean value here is FALSE"This is going to wait for y |	"Enter a string to see if it detects an error"
+HERE 2222						      <
+the 2 boolean value here is FALSE"Enter a string to see if it <
+HERE 2222						      <
+HERE 2222						      <
 Line 4: Arg 2 must be integer or float or bool			Line 4: Arg 2 must be integer or float or bool

@@ -91,6 +91,7 @@ typedef struct {
   bool is_null; 
   RList* rlist;
   bool isIndex;
+  int opType;
 } TYPE_INFO;
 
 

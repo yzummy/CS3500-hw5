@@ -1,4 +1,30 @@
 
+___Entering new scope...				      <
+							      <
+TOKEN: FLOATCONST 		 LEXEME: 32.01		      <
+CONST -> FLOATCONST					      <
+FACTOR -> CONST						      <
+TOKEN: POWER 		 LEXEME: ^			      <
+MULT_OP -> ^						      <
+TOKEN: FLOATCONST 		 LEXEME: 1.54		      <
+CONST -> FLOATCONST					      <
+FACTOR -> CONST						      <
+MULT_OP_LIST -> epsilon					      <
+MULT_OP_LIST -> MULT_OP FACTOR MULT_OP_LIST		      <
+HEre 1							      <
+1 and: FALSE and					      <
+							      <
+TERM -> FACTOR MULT_OP_LIST				      <
+HERE 1111						      <
+ADD_OP_LIST -> epsilon					      <
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
+EXPR -> ARITHLOGIC_EXPR					      <
+START -> EXPR						      <
+							      <
 ---- Completed parsing ----					---- Completed parsing ----
 
- Value of the expression is: 32.01			      |	Value of the expression is: 208.04
+Value of the expression is: 208.04				Value of the expression is: 208.04
+							      <
+___Exiting scope...					      <
+							      <

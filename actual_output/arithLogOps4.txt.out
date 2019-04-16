@@ -1,4 +1,75 @@
 
+___Entering new scope...
+
+TOKEN: NOT 		 LEXEME: !
+TOKEN: LPAREN 		 LEXEME: (
+TOKEN: LPAREN 		 LEXEME: (
+TOKEN: TRUE 		 LEXEME: TRUE
+CONST -> TRUE
+FACTOR -> CONST
+TOKEN: AND 		 LEXEME: &
+MULT_OP -> &
+TOKEN: FLOATCONST 		 LEXEME: 3.14
+CONST -> FLOATCONST
+FACTOR -> CONST
+TOKEN: RPAREN 		 LEXEME: )
+MULT_OP_LIST -> epsilon
+MULT_OP_LIST -> MULT_OP FACTOR MULT_OP_LIST
+HEre 1
+1 and: FALSE and
+
+TERM -> FACTOR MULT_OP_LIST
+HERE 1111
+1 and 2: TRUE and FALSE
+
+type 1 and 2: 8 and 16
+
+1 and 2: TRUE and TRUE
+
+it 4 is opType: 17
+the boolean value here is TRUEADD_OP_LIST -> epsilon
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
+EXPR -> ARITHLOGIC_EXPR
+FACTOR -> ( EXPR )
+TOKEN: OR 		 LEXEME: |
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP -> |
+TOKEN: INTCONST 		 LEXEME: 0
+CONST -> INTCONST
+FACTOR -> CONST
+TOKEN: RPAREN 		 LEXEME: )
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP_LIST -> epsilon
+ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST
+it 3 is optype logical 0 
+is logical FALSE
+here 666660, 0.000000 
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
+it 1 is optype logical 16it 2 is optype logical 16float calculation here: 1.000000 16 0.000000 = 0.000000
+int calculation here: 1 16 0 = 0
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
+EXPR -> ARITHLOGIC_EXPR
+FACTOR -> ( EXPR )
+FACTOR -> ! FACTOR
+The final answer true
+, after NOT false
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP_LIST -> epsilon
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
+EXPR -> ARITHLOGIC_EXPR
+START -> EXPR
+
 ---- Completed parsing ----
 
- Value of the expression is: 0.00
+Value of the expression is: FALSE
+
+___Exiting scope...
+

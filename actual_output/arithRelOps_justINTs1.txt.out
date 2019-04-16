@@ -1,4 +1,32 @@
 
+___Entering new scope...
+
+TOKEN: INTCONST 		 LEXEME: 5
+CONST -> INTCONST
+FACTOR -> CONST
+TOKEN: GE 		 LEXEME: >=
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP_LIST -> epsilon
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
+REL_OP -> >=
+TOKEN: INTCONST 		 LEXEME: 7
+CONST -> INTCONST
+FACTOR -> CONST
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP_LIST -> epsilon
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC REL_OP SIMPLE_ARITHLOGIC
+in expression 5.000000 and 7.000000
+EXPR -> ARITHLOGIC_EXPR
+START -> EXPR
+
 ---- Completed parsing ----
 
- Value of the expression is: FALSE
+Value of the expression is: FALSE
+
+___Exiting scope...
+

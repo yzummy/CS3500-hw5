@@ -1,4 +1,36 @@
 
+___Entering new scope...				      <
+							      <
+TOKEN: IF 		 LEXEME: if			      <
+TOKEN: LPAREN 		 LEXEME: (			      <
+TOKEN: FALSE 		 LEXEME: FALSE			      <
+CONST -> FALSE						      <
+FACTOR -> CONST						      <
+TOKEN: RPAREN 		 LEXEME: )			      <
+MULT_OP_LIST -> epsilon					      <
+TERM -> FACTOR MULT_OP_LIST				      <
+HERE 2222						      <
+ADD_OP_LIST -> epsilon					      <
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
+EXPR -> ARITHLOGIC_EXPR					      <
+TOKEN: INTCONST 		 LEXEME: 42		      <
+CONST -> INTCONST					      <
+FACTOR -> CONST						      <
+MULT_OP_LIST -> epsilon					      <
+TERM -> FACTOR MULT_OP_LIST				      <
+HERE 2222						      <
+ADD_OP_LIST -> epsilon					      <
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST			      <
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC			      <
+EXPR -> ARITHLOGIC_EXPR					      <
+IF_EXPR -> IF ( EXPR ) EXPR				      <
+EXPR -> IF_EXPR						      <
+START -> EXPR						      <
+							      <
 ---- Completed parsing ----					---- Completed parsing ----
 
- Value of the expression is: NULL			      |	Value of the expression is: NULL
+Value of the expression is: NULL				Value of the expression is: NULL
+							      <
+___Exiting scope...					      <
+							      <

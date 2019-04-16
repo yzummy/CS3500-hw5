@@ -1,4 +1,59 @@
 
+___Entering new scope...
+
+TOKEN: FLOATCONST 		 LEXEME: 100.25
+CONST -> FLOATCONST
+FACTOR -> CONST
+TOKEN: SUB 		 LEXEME: -
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP -> -
+TOKEN: LPAREN 		 LEXEME: (
+TOKEN: FLOATCONST 		 LEXEME: 50.2
+CONST -> FLOATCONST
+FACTOR -> CONST
+TOKEN: ADD 		 LEXEME: +
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP -> +
+TOKEN: FLOATCONST 		 LEXEME: 25.7
+CONST -> FLOATCONST
+FACTOR -> CONST
+TOKEN: RPAREN 		 LEXEME: )
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP_LIST -> epsilon
+ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST
+it 3 is optype logical 0 
+is logical FALSE
+here 666660, 25.700001 
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
+it 1 is optype logical 7float calculation here: 50.200001 7 25.700001 = 75.900002
+int calculation here: 0 7 0 = 0
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
+EXPR -> ARITHLOGIC_EXPR
+FACTOR -> ( EXPR )
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP_LIST -> epsilon
+ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST
+it 3 is optype logical 7 
+is logical FALSE
+here 666660, 75.900002 
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
+it 1 is optype logical 8float calculation here: 100.250000 8 75.900002 = 24.349998
+int calculation here: 0 8 0 = 0
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
+EXPR -> ARITHLOGIC_EXPR
+START -> EXPR
+
 ---- Completed parsing ----
 
- Value of the expression is: 200.50
+Value of the expression is: 24.35
+
+___Exiting scope...
+

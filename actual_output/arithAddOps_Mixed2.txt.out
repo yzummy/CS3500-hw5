@@ -1,4 +1,48 @@
 
+___Entering new scope...
+
+TOKEN: INTCONST 		 LEXEME: 7
+CONST -> INTCONST
+FACTOR -> CONST
+TOKEN: ADD 		 LEXEME: +
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP -> +
+TOKEN: TRUE 		 LEXEME: TRUE
+CONST -> TRUE
+FACTOR -> CONST
+TOKEN: ADD 		 LEXEME: +
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP -> +
+TOKEN: FLOATCONST 		 LEXEME: 3.14
+CONST -> FLOATCONST
+FACTOR -> CONST
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP_LIST -> epsilon
+ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST
+it 3 is optype logical 0 
+is logical FALSE
+here 666660, 3.140000 
+ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST
+it 3 is optype logical 7 
+is logical FALSE
+here 66666Convert bool to float and int 
+0, 4.140000 
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
+it 1 is optype logical 7float calculation here: 7.000000 7 4.140000 = 11.140000
+int calculation here: 7 7 0 = 7
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
+EXPR -> ARITHLOGIC_EXPR
+START -> EXPR
+
 ---- Completed parsing ----
 
- Value of the expression is: 7
+Value of the expression is: 11.14
+
+___Exiting scope...
+

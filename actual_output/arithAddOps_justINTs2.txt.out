@@ -1,4 +1,96 @@
 
+___Entering new scope...
+
+TOKEN: LPAREN 		 LEXEME: (
+TOKEN: INTCONST 		 LEXEME: 7
+CONST -> INTCONST
+FACTOR -> CONST
+TOKEN: SUB 		 LEXEME: -
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP -> -
+TOKEN: INTCONST 		 LEXEME: 2
+CONST -> INTCONST
+FACTOR -> CONST
+TOKEN: RPAREN 		 LEXEME: )
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP_LIST -> epsilon
+ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST
+it 3 is optype logical 0 
+is logical FALSE
+here 666662, 2.000000 
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
+it 1 is optype logical 8float calculation here: 7.000000 8 2.000000 = 7.000000
+int calculation here: 7 8 2 = 5
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
+EXPR -> ARITHLOGIC_EXPR
+FACTOR -> ( EXPR )
+TOKEN: ADD 		 LEXEME: +
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP -> +
+TOKEN: INTCONST 		 LEXEME: 3
+CONST -> INTCONST
+FACTOR -> CONST
+TOKEN: ADD 		 LEXEME: +
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP -> +
+TOKEN: LPAREN 		 LEXEME: (
+TOKEN: INTCONST 		 LEXEME: 10
+CONST -> INTCONST
+FACTOR -> CONST
+TOKEN: SUB 		 LEXEME: -
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP -> -
+TOKEN: INTCONST 		 LEXEME: -4
+CONST -> INTCONST
+FACTOR -> CONST
+TOKEN: RPAREN 		 LEXEME: )
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP_LIST -> epsilon
+ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST
+it 3 is optype logical 0 
+is logical FALSE
+here 66666-4, -4.000000 
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
+it 1 is optype logical 8float calculation here: 10.000000 8 -4.000000 = 10.000000
+int calculation here: 10 8 -4 = 14
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
+EXPR -> ARITHLOGIC_EXPR
+FACTOR -> ( EXPR )
+MULT_OP_LIST -> epsilon
+TERM -> FACTOR MULT_OP_LIST
+HERE 2222
+ADD_OP_LIST -> epsilon
+ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST
+it 3 is optype logical 8 
+is logical FALSE
+here 6666614, 14.000000 
+ADD_OP_LIST -> ADD_OP TERM ADD_OP_LIST
+it 3 is optype logical 7 
+is logical FALSE
+here 66666Convert bool to float and int 
+17, 0.000000 
+SIMPLE_ARITHLOGIC -> TERM ADD_OP_LIST
+it 1 is optype logical 7float calculation here: 5.000000 7 0.000000 = 5.000000
+int calculation here: 5 7 17 = 22
+ARITHLOGIC_EXPR -> SIMPLE_ARITHLOGIC
+EXPR -> ARITHLOGIC_EXPR
+START -> EXPR
+
 ---- Completed parsing ----
 
- Value of the expression is: 3
+Value of the expression is: 22
+
+___Exiting scope...
+

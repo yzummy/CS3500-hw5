@@ -16,11 +16,28 @@
 #include <string>
 #include <stack>
 #include "SymbolTable.h"
+#include <math.h>
+#include <cmath>
 using namespace std;
 
 #define ARITHMETIC_OP   1
 #define LOGICAL_OP      2
 #define RELATIONAL_OP   3
+#define ARITHMETIC_OP_MOD 4
+#define ARITHMETIC_OP_DIV 5
+#define ARITHMETIC_OP_MUL 6
+#define ARITHMETIC_OP_ADD 7
+#define ARITHMETIC_OP_SUB 8
+#define ARITHMETIC_OP_POW 9
+#define RELATIONAL_OP_LESS   10
+#define RELATIONAL_OP_GREATER   11
+#define RELATIONAL_OP_LEQ   12
+#define RELATIONAL_OP_GEQ   13
+#define RELATIONAL_OP_NEQ   14
+#define RELATIONAL_OP_EQL   15
+#define LOGICAL_OP_OR   16
+#define LOGICAL_OP_AND  17
+
 
 
 #define ERR_CANNOT_BE_FUNCT_NULL_LIST_OR_STR	0
@@ -60,7 +77,7 @@ const string ERR_MSG[NUM_ERR_MESSAGES] = {
 };
 
 // constant to suppress token printing
-const bool suppressTokenOutput = true;
+const bool suppressTokenOutput = false;
 
 int line_num = 1;
 int numExprs = 0;
@@ -73,7 +90,9 @@ bool isBoolCompatible(const int theType);
 bool isFloatCompatible(const int theType);
 bool isListCompatible(const int theType);
 bool isInvalidOperandType(const int theType);
-
+bool isArithmetic(const int theType);
+bool isRelational(const int theType);
+bool isLogical(const int theType);
 void beginScope();
 void endScope();
 void cleanUp();
@@ -665,6 +684,8 @@ N_WHILE_EXPR    : T_WHILE T_LPAREN N_EXPR
                     $$.numParams = $6.numParams;
                     $$.returnType = $6.returnType;
                     $$.isParam = $6.isParam;
+                    
+                    $$.is_null = true;
                 }
                 ;
 
@@ -706,6 +727,7 @@ N_FOR_EXPR      : T_FOR T_LPAREN T_IDENT
                     $$.numParams = $9.numParams;
                     $$.returnType = $9.returnType;
                     $$.isParam = $9.isParam;
+                    $$.is_null = true;
 			}
                 ;
 
@@ -1283,11 +1305,45 @@ N_ARITHLOGIC_EXPR : N_SIMPLE_ARITHLOGIC
                     if(isInvalidOperandType($3.type)) 
                    	semanticError(2,
 				    ERR_MUST_BE_INT_FLOAT_OR_BOOL);
+                    
+                    printf("in expression %f and %f\n", $1.val_float, $3.val_float);
                     $$.type = BOOL; 
                     $$.numParams = NOT_APPLICABLE;
                     $$.returnType = NOT_APPLICABLE;
                     $$.isParam = false;
-                    $$.val_bool = $1.val_bool;
+                    
+                    if($1.type == BOOL && $1.val_bool){
+                        $1.val_float = 1;
+                    }else if($1.type == BOOL && !($1.val_bool)){
+                        $1.val_float = 0;
+                    }
+                    if($3.type == BOOL && $3.val_bool){
+                        $3.val_float = 1;
+                    }else if($3.type == BOOL && !($3.val_bool)){
+                        $3.val_float = 0;
+                    }                        
+                    if($1.type == INT){
+                        $1.val_float = $1.val_int;
+                    }
+                    if($3.type == INT){
+                        $3.val_float = $3.val_int;
+                    }
+                    if($2 == RELATIONAL_OP_EQL){
+                        $$.val_bool = ($1.val_float == $3.val_float);
+                    }else if($2 == RELATIONAL_OP_NEQ){
+                        $$.val_bool = ($1.val_float != $3.val_float);
+                    }else if($2 == RELATIONAL_OP_GEQ){
+                        $$.val_bool = ($1.val_float >= $3.val_float);
+                    }else if($2 == RELATIONAL_OP_LEQ){
+                        $$.val_bool = ($1.val_float <= $3.val_float);
+                    }else if($2 == RELATIONAL_OP_LESS){
+                        $$.val_bool = ($1.val_float < $3.val_float);
+                    }else if($2 == RELATIONAL_OP_GREATER){
+                        $$.val_bool = ($1.val_float > $3.val_float);
+                    }
+                        
+                        
+                        
                     $$.val_int = $1.val_int;
                     $$.val_float = $1.val_float;
                     strcpy($$.val_string, $1.val_string);
@@ -1301,29 +1357,79 @@ N_SIMPLE_ARITHLOGIC : N_TERM N_ADD_OP_LIST
                               "TERM ADD_OP_LIST");
 			    if ($2.type != NOT_APPLICABLE)
 			    {
+                    printf("it 1 is optype logical %d", $2.opType);
                       if(isInvalidOperandType($1.type))
                         semanticError(1,
 				    ERR_MUST_BE_INT_FLOAT_OR_BOOL);
                       if(isInvalidOperandType($2.type))
                         semanticError(2,
 				    ERR_MUST_BE_INT_FLOAT_OR_BOOL);
-				$$.val_bool = $1.val_bool;
-                    $$.val_int = $1.val_int;
-                    $$.val_float = $1.val_float;
-                if (($1.type==FLOAT||$2.type==FLOAT)&&(isFloatCompatible($1.type) &&
-				         isFloatCompatible($2.type)))
-				{
-                $$.type = FLOAT;
-                $$.val_float=$1.val_float+$1.val_float;
-                $$.returnType=FLOAT;
-                }
+                                     if($2.type==BOOL){
+                                        if($2.val_bool){
+                                            $2.val_int = 1;
+                                            $2.val_float = 1;    
+                                        }else{
+                                            $2.val_int = 0;
+                                            $2.val_float = 0;                                                
+                                        }
+                                    }
+                                    if($1.type==BOOL){
+                                        if($1.val_bool){
+                                            $1.val_int = 1;
+                                            $1.val_float = 1;    
+                                        }else{
+                                            $1.val_int = 0;
+                                            $1.val_float = 0;                                                
+                                        }
+                                    }
+                if(isLogical($2.opType)){
+                    printf("it 2 is optype logical %d", $2.opType);
+                    $$.type = BOOL;
+                    if(($1.type == FLOAT and $1.val_float == 0) 
+                        || ($1.type == INT and $1.val_int == 0)){
+                            $1.val_bool = false;
+                        }else{
+                            $1.val_bool = true;
+                        }
+                    if(($2.type == FLOAT and $2.val_float == 0) 
+                        || ($2.type == INT and $2.val_int == 0)){
+                            $2.val_bool = false;
+                        }else{
+                            $2.val_bool = true;
+                        } 
+                    if($2.opType == LOGICAL_OP_AND){
+                        $$.val_bool = $1.val_bool && $2.val_bool;
+                      }else if($2.opType == LOGICAL_OP_OR){
+                        $$.val_bool = $1.val_bool || $2.val_bool;
+                     }
+                 }
 				else if (isIntCompatible($1.type) &&
 				         isIntCompatible($2.type))
                             { 
-                            $$.type = INT;
-                            $$.val_int=$1.val_int+$2.val_int;
+                        
+                                    $$.type = INT;
+                                    if($2.opType == ARITHMETIC_OP_ADD){
+                                        $$.val_int=$1.val_int+$2.val_int;
+                                    }else if($2.opType == ARITHMETIC_OP_SUB){
+                                        $$.val_int=$1.val_int-$2.val_int;
+                                    }
                             }
-				else $$.type = $1.type;
+				else{
+                        $$.type = FLOAT;
+                        if($1.val_int != 0){
+                            $1.val_float = (float)$1.val_int;
+                        }
+                        if($2.val_int != 0){
+                            $2.val_float = (float)$2.val_int;
+                        }
+                        if($2.opType == ARITHMETIC_OP_ADD){
+                            $$.val_float=$1.val_float+$2.val_float;
+                        }else if($2.opType == ARITHMETIC_OP_SUB){
+                            $$.val_float=$1.val_float-$2.val_float;
+                        }   
+                }
+                printf("float calculation here: %f %d %f = %f\n", $1.val_float, $2.opType, $2.val_float, $$.val_float);
+                printf("int calculation here: %d %d %d = %d\n", $1.val_int, $2.opType, $2.val_int, $$.val_int);
 				$$.numParams = NOT_APPLICABLE;
 				$$.returnType = NOT_APPLICABLE;
                      	$$.isParam = false;
@@ -1361,6 +1467,7 @@ N_SIMPLE_ARITHLOGIC : N_TERM N_ADD_OP_LIST
                         temp_new = temp_new->rlist;
                     }
 			    }
+                $$.opType = $2.opType;
                 }
                 ;
 
@@ -1375,17 +1482,50 @@ N_ADD_OP_LIST	: N_ADD_OP N_TERM N_ADD_OP_LIST
 			    $$.numParams = NOT_APPLICABLE;
 			    $$.returnType = NOT_APPLICABLE;
                     $$.isParam = false;
-			    if ($1 == LOGICAL_OP)
-				$$.type = BOOL;
-			    else
+                $$.opType = $1;
+                
+                printf("it 3 is optype logical %d \n", $3.opType);
+                printf("is logical %s\n", isLogical($3.opType)?"TRUE":"FALSE");
+			    if (isLogical($3.opType))
+                {
+                printf("55555 %f\n", $3.val_float);
+                printf("here 55555");
+                    $$.type = BOOL;
+                    if(($3.type == FLOAT and $3.val_float == 0) 
+                        || ($3.type == INT and $3.val_int == 0)){
+                            $3.val_bool = false;
+                        }else{
+                            $3.val_bool = true;
+                        }
+                    if(($2.type == FLOAT and $2.val_float == 0) 
+                        || ($2.type == INT and $2.val_int == 0)){
+                            $2.val_bool = false;
+                        }else{
+                            $2.val_bool = true;
+                        }                     
+                    if ($3.type == NOT_APPLICABLE)
+                    {
+                        $$.val_bool = $2.val_bool;
+                    }else{
+
+                        if($3.opType == LOGICAL_OP_AND){
+                            $$.val_bool = $3.val_bool && $2.val_bool;
+                          }else if($3.opType == LOGICAL_OP_OR){
+                            $$.val_bool = $3.val_bool || $2.val_bool;
+                         }
+                    }
+                }
+                else
 			    {
+                                printf("here 66666");
+
 				if ($3.type == NOT_APPLICABLE)
                 {
                     $$.type = $2.type;
                     $$.numParams = $2.numParams;
                     $$.returnType = $2.returnType;
                     $$.isParam = $2.isParam;
-                    
+                    $$.opType = $1;
                     $$.val_bool = $2.val_bool;
                     $$.val_int = $2.val_int;
                     $$.val_float = $2.val_float;
@@ -1414,24 +1554,57 @@ N_ADD_OP_LIST	: N_ADD_OP N_TERM N_ADD_OP_LIST
 				}
                 else
 				{
-				  if (($2.type==FLOAT||$3.type==FLOAT)&&(isFloatCompatible($2.type) &&
-				         isFloatCompatible($3.type)))
-				{
-                $$.type = FLOAT;
-                $$.val_float=$2.val_float+$3.val_float;
-                $$.returnType=FLOAT;
-                }
-				else if (isIntCompatible($2.type) &&
-				         isIntCompatible($3.type))
-                            { 
-                            $$.type = INT;
-                            $$.val_int=$2.val_int+$3.val_int;
-                            }
-				else $$.type = $2.type;
-				$$.numParams = NOT_APPLICABLE;
-				$$.returnType = NOT_APPLICABLE;
-                     	$$.isParam = false;
+                    printf("Convert bool to float and int \n");
+                                     if($2.type==BOOL){
+                                        if($2.val_bool){
+                                            $2.val_int = 1;
+                                            $2.val_float = 1;    
+                                        }else{
+                                            $2.val_int = 0;
+                                            $2.val_float = 0;                                                
+                                        }
+                                    }
+                                    if($3.type==BOOL){
+                                        if($3.val_bool){
+                                            $3.val_int = 1;
+                                            $3.val_float = 1;    
+                                        }else{
+                                            $3.val_int = 0;
+                                            $3.val_float = 0;                                                
+                                        }
+                                    }               
+                    if (isIntCompatible($2.type) &&
+                             isIntCompatible($3.type))
+                                { 
+
+                                    $$.type = INT;
+                                    if($3.opType == ARITHMETIC_OP_ADD){
+                                        $$.val_int=$2.val_int+$3.val_int;
+                                    }else if($3.opType == ARITHMETIC_OP_SUB){
+                                        $$.val_int=$2.val_int-$3.val_int;
+                                    }
+                                }
+                    else {
+                        $$.type = FLOAT;
+                        if($2.val_int != 0){
+                            $2.val_float = (float)$2.val_int;
+                        }
+                        if($3.val_int != 0){
+                            $3.val_float = (float)$3.val_int;
+                        }
+                        if($3.opType == ARITHMETIC_OP_ADD){
+                            $$.val_float=$2.val_float+$3.val_float;
+                        }else if($3.opType == ARITHMETIC_OP_SUB){
+                            $$.val_float=$2.val_float-$3.val_float;
+                        }                        
+                    }
+                    $$.numParams = NOT_APPLICABLE;
+                    $$.returnType = NOT_APPLICABLE;
+                    $$.isParam = false;
+                    $$.opType = $1;
+                        
 				}
+                printf("%d, %f \n", $$.val_int, $$.val_float);
                     }
                 }
                 | /* epsilon */
@@ -1441,6 +1614,7 @@ N_ADD_OP_LIST	: N_ADD_OP N_TERM N_ADD_OP_LIST
 			    $$.numParams = NOT_APPLICABLE;
 			    $$.returnType = NOT_APPLICABLE;
 			    $$.isParam = false;
+                
                 }
                 ;
 
@@ -1448,8 +1622,10 @@ N_TERM		: N_FACTOR N_MULT_OP_LIST
                 {
                     printRule("TERM",
                               "FACTOR MULT_OP_LIST");
+                              
 			    if ($2.type != NOT_APPLICABLE)
 			    {
+                printf("HERE 1111\n");
 				if(isInvalidOperandType($1.type))
                         semanticError(1,
 				    ERR_MUST_BE_INT_FLOAT_OR_BOOL);
@@ -1459,19 +1635,99 @@ N_TERM		: N_FACTOR N_MULT_OP_LIST
                      	$$.numParams = NOT_APPLICABLE;
                      	$$.returnType = NOT_APPLICABLE;
                     	$$.isParam = false;
-				if (isBoolCompatible($1.type) &&
-				    isBoolCompatible($2.type))
-				  $$.type = BOOL;
+				if (isLogical($2.opType)){
+                  $$.type = BOOL;
+                  printf("1 and 2: %s and %s\n\n", $1.val_bool?"TRUE":"FALSE", $2.val_bool?"TRUE":"FALSE");
+                        if(($1.type == FLOAT and $1.val_float == 0) 
+                        || ($1.type == INT and $1.val_int == 0)){
+                            $1.val_bool = false;
+                        }else if(($1.type == FLOAT and $1.val_float != 0) 
+                        || ($1.type == INT and $1.val_int != 0)){
+                            $1.val_bool = true;
+                        }
+                    if(($2.type == FLOAT and $2.val_float == 0) 
+                        || ($2.type == INT and $2.val_int == 0)){
+                            $2.val_bool = false;
+                        }else if(($2.type == FLOAT and $2.val_float != 0) 
+                        || ($2.type == INT and $2.val_int != 0)){
+                            $2.val_bool = true;
+                        } 
+                        printf("type 1 and 2: %d and %d\n\n", $1.type, $2.type);
+                  printf("1 and 2: %s and %s\n\n", $1.val_bool?"TRUE":"FALSE", $2.val_bool?"TRUE":"FALSE");
+                  if($2.opType == LOGICAL_OP_AND){
+                    $$.val_bool = $1.val_bool && $2.val_bool;
+                  }else if($2.opType == LOGICAL_OP_OR){
+                    $$.val_bool = $1.val_bool || $2.val_bool;
+                  }
+                  printf("it 4 is opType: %d\n", $2.opType);
+                  printf("the boolean value here is %s", $$.val_bool?"TRUE":"FALSE");
+                }
 				else
 				{
+                                     if($2.type==BOOL){
+                                        if($2.val_bool){
+                                            $2.val_int = 1;
+                                            $2.val_float = 1;    
+                                        }else{
+                                            $2.val_int = 0;
+                                            $2.val_float = 0;                                                
+                                        }
+                                    }
+                                    if($1.type==BOOL){
+                                        if($1.val_bool){
+                                            $1.val_int = 1;
+                                            $1.val_float = 1;    
+                                        }else{
+                                            $1.val_int = 0;
+                                            $1.val_float = 0;                                                
+                                        }
+                                    }                
 				  if (isIntCompatible($1.type) &&
 				      isIntCompatible($2.type))
-                            $$.type = INT;
-                        else $$.type = FLOAT;
+                      {
+                     
+				    $$.type = INT;
+                    if($2.opType == ARITHMETIC_OP_MUL){
+                        $$.val_int = $1.val_int * $2.val_int;
+                    }else if($2.opType == ARITHMETIC_OP_DIV){
+                        if($2.val_int == 0){
+                            yyerror("Attempted division by zero");                          
+                        }else{
+                            $$.val_int = $1.val_int / $2.val_int;
+                        }
+                    }else if($2.opType == ARITHMETIC_OP_MOD){
+                        $$.val_int = $1.val_int % $2.val_int;
+                    }else if($2.opType == ARITHMETIC_OP_POW){
+                        $$.val_int = pow($1.val_int,$2.val_int);
+                    }
+                       }
+                       else{
+                    $$.type = FLOAT;
+                    if($1.val_int != 0){
+                        $1.val_float = (float)$1.val_int;
+                    }
+                    if($2.val_int != 0){
+                        $2.val_float = (float)$2.val_int;
+                    }                    
+                    if($2.opType == ARITHMETIC_OP_MUL){
+                        $$.val_float = $1.val_float * $2.val_float;
+                    }else if($2.opType == ARITHMETIC_OP_DIV){
+                        if($2.val_float == 0){
+                            yyerror("Attempted division by zero");                          
+                        }else{
+                            $$.val_float = $1.val_float / $2.val_float;
+                        }
+                    }else if($2.opType == ARITHMETIC_OP_MOD){
+                        $$.val_float = fmod($1.val_float, $2.val_float);
+                    }else if($2.opType == ARITHMETIC_OP_POW){
+                        $$.val_float = pow($1.val_float,$2.val_float);
+                    }    
 				}
+                }
 			    }
                     else 
 			    {
+                printf("HERE 2222\n");
                     $$.type = $1.type;
                     $$.numParams = $1.numParams;
                     $$.returnType = $1.returnType;
@@ -1483,6 +1739,9 @@ N_TERM		: N_FACTOR N_MULT_OP_LIST
                     strcpy($$.val_string, $1.val_string);
                     $$.is_null= $1.is_null;
                     
+                    if($$.type == INT){
+                        $$.val_float = (float)$$.val_int;
+                    }
                     
                     $$.rlist = new RList;
                     RList *temp = $1.rlist;
@@ -1503,6 +1762,7 @@ N_TERM		: N_FACTOR N_MULT_OP_LIST
                         temp_new = temp_new->rlist;
                     }
 			    }
+                $$.opType = $2.opType;
                 }
                 ;
 
@@ -1517,52 +1777,144 @@ N_MULT_OP_LIST	: N_MULT_OP N_FACTOR N_MULT_OP_LIST
 			    $$.numParams = NOT_APPLICABLE;
                     $$.returnType = NOT_APPLICABLE;
 			    $$.isParam = false;
-			    if ($3.type == NOT_APPLICABLE){
-                    $$.type = $2.type;
-                    $$.numParams = $2.numParams;
-                    $$.returnType = $2.returnType;
-                    $$.isParam = $2.isParam;
-                    
-                    $$.val_bool = $2.val_bool;
-                    $$.val_int = $2.val_int;
-                    $$.val_float = $2.val_float;
-                    strcpy($$.val_string, $2.val_string);
-                    $$.is_null= $2.is_null;
-                    
-                    
-                    $$.rlist = new RList;
-                    RList *temp = $2.rlist;
-                    RList *temp_new = $$.rlist;
-                    while(temp!=NULL)
-                    {   
-                        temp_new->type = temp->type;
-                        temp_new->val_bool = temp->val_bool;
-                        temp_new->val_int = temp->val_int;
-                        temp_new->val_float = temp->val_float;
-                        strcpy(temp_new->val_string, temp->val_string);
-                        temp_new->length = temp->length;
-                        temp = temp->rlist;
-                        if(temp!=NULL)
-                            temp_new->rlist = new RList;
-                        else
-                            temp_new->rlist = NULL;
-                        temp_new = temp_new->rlist;
+                $$.opType = $1;
+			    if (isLogical($3.opType))
+                {
+                    $$.type = BOOL;
+                    if(($3.type == FLOAT and $3.val_float == 0) 
+                        || ($3.type == INT and $3.val_int == 0)){
+                            $3.val_bool = false;
+                        }else{
+                            $3.val_bool = true;
+                        }
+                    if(($2.type == FLOAT and $2.val_float == 0) 
+                        || ($2.type == INT and $2.val_int == 0)){
+                            $2.val_bool = false;
+                        }else{
+                            $2.val_bool = true;
+                        }                        
+                    if ($3.type == NOT_APPLICABLE)
+                    {
+                        $$.val_bool = $2.val_bool;
+                    }else{
+
+                        if($3.opType == LOGICAL_OP_AND){
+                            $$.val_bool = $3.val_bool && $2.val_bool;
+                          }else if($3.opType == LOGICAL_OP_OR){
+                            $$.val_bool = $3.val_bool || $2.val_bool;
+                         }
                     }
                 }
-			    else
-			    {
-                      if(isInvalidOperandType($3.type))                    				  semanticError(argWithErr,
-				    ERR_MUST_BE_INT_FLOAT_OR_BOOL);
-			      if ($1 == LOGICAL_OP)
-				  $$.type = BOOL;
-			      else
-			      {
-				  if (isIntCompatible($2.type) &&
-				      isIntCompatible($3.type))
-				    $$.type = INT;
-				  else $$.type = FLOAT;
-			      }
+                else
+			    {                
+                    if ($3.type == NOT_APPLICABLE){
+                        printf("%s\n", "HEre 1");
+                        $$.type = $2.type;
+                        $$.numParams = $2.numParams;
+                        $$.returnType = $2.returnType;
+                        $$.isParam = $2.isParam;
+                        $$.opType = $1;
+                        $$.val_bool = $2.val_bool;
+                        $$.val_int = $2.val_int;
+                        $$.val_float = $2.val_float;
+                        strcpy($$.val_string, $2.val_string);
+                        $$.is_null= $2.is_null;
+                        
+                        
+                        $$.rlist = new RList;
+                        RList *temp = $2.rlist;
+                        RList *temp_new = $$.rlist;
+                        while(temp!=NULL)
+                        {   
+                            temp_new->type = temp->type;
+                            temp_new->val_bool = temp->val_bool;
+                            temp_new->val_int = temp->val_int;
+                            temp_new->val_float = temp->val_float;
+                            strcpy(temp_new->val_string, temp->val_string);
+                            temp_new->length = temp->length;
+                            temp = temp->rlist;
+                            if(temp!=NULL)
+                                temp_new->rlist = new RList;
+                            else
+                                temp_new->rlist = NULL;
+                            temp_new = temp_new->rlist;
+                        }
                     }
+                    else
+                    {
+                        printf("%s\n", "HEre 2");
+                          if(isInvalidOperandType($3.type))                    				  semanticError(argWithErr,
+                        ERR_MUST_BE_INT_FLOAT_OR_BOOL);
+                      if (isLogical($1))
+                      $$.type = BOOL;
+                      else
+                      {
+                                         if($2.type==BOOL){
+                                            if($2.val_bool){
+                                                $2.val_int = 1;
+                                                $2.val_float = 1;    
+                                            }else{
+                                                $2.val_int = 0;
+                                                $2.val_float = 0;                                                
+                                            }
+                                        }
+                                        if($3.type==BOOL){
+                                            if($3.val_bool){
+                                                $3.val_int = 1;
+                                                $3.val_float = 1;    
+                                            }else{
+                                                $3.val_int = 0;
+                                                $3.val_float = 0;                                                
+                                            }
+                                        }                      
+                      if (isIntCompatible($2.type) &&
+                          isIntCompatible($3.type))
+                          {
+                     
+                        $$.type = INT;
+                        if($3.opType == ARITHMETIC_OP_MUL){
+                            $$.val_int = $2.val_int * $3.val_int;
+                        }else if($3.opType == ARITHMETIC_OP_DIV){
+                            if($3.val_int == 0){
+                                yyerror("Attempted division by zero");                          
+                            }else{
+                                $$.val_int = $2.val_int / $3.val_int;
+                            }
+                        }else if($3.opType == ARITHMETIC_OP_MOD){
+                            $$.val_int = $2.val_int % $3.val_int;
+                        }else if($3.opType == ARITHMETIC_OP_POW){
+                            $$.val_int = pow($2.val_int,$3.val_int);
+                        }
+                        
+                        }
+                      else{
+                        $$.type = FLOAT;
+                        if($2.val_int != 0){
+                            $2.val_float = (float)$2.val_int;
+                        }
+                        if($3.val_int != 0){
+                            $3.val_float = (float)$3.val_int;
+                        }                    
+                        if($3.opType == ARITHMETIC_OP_MUL){
+                            $$.val_float = $2.val_float * $3.val_float;
+                        }else if($3.opType == ARITHMETIC_OP_DIV){
+                            if($3.val_float == 0){
+                                yyerror("Attempted division by zero");                          
+                            }else{
+                                $$.val_float = $2.val_float / $3.val_float;
+                            }
+                        }else if($3.opType == ARITHMETIC_OP_MOD){
+                            $$.val_float = fmod($2.val_float, $3.val_float);
+                        }else if($3.opType == ARITHMETIC_OP_POW){
+                            $$.val_float = pow($2.val_float,$3.val_float);
+                        }                    
+                        }
+                      }
+                      $$.opType = $1;
+                        }
+                    }
+                    printf("1 and: %s and\n\n", $2.val_bool?"TRUE":"FALSE");
+
                 }
                 | /* epsilon */
                 {
@@ -1571,6 +1923,8 @@ N_MULT_OP_LIST	: N_MULT_OP N_FACTOR N_MULT_OP_LIST
 			    $$.numParams = NOT_APPLICABLE;
 			    $$.returnType = NOT_APPLICABLE;
                     $$.isParam = false;
+                    
+                    
                 }
                 ;
 
@@ -1585,6 +1939,21 @@ N_FACTOR		: N_VAR
                     $$.val_bool = $1.val_bool;
                     $$.val_int = $1.val_int;
                     $$.val_float = $1.val_float;
+                    
+                    if($1.type == INT){
+                        $$.val_float = (float)$1.val_int;
+                    }
+                    
+                    if($1.type==BOOL){
+                        if($1.val_bool){
+                            $1.val_int = 1;
+                            $1.val_float = 1;    
+                        }else{
+                            $1.val_int = 0;
+                            $1.val_float = 0;                                                
+                        }
+                    }
+                    
                     strcpy($$.val_string, $1.val_string);
                     $$.is_null= $1.is_null;
                     
@@ -1623,6 +1992,32 @@ N_FACTOR		: N_VAR
                     $$.numParams = $2.numParams;
                     $$.returnType = $2.returnType;
                     $$.isParam = $2.isParam;
+                    
+                    $$.val_bool = $2.val_bool;
+                    $$.val_int = $2.val_int;
+                    $$.val_float = $2.val_float;
+                    strcpy($$.val_string, $2.val_string);
+                    $$.is_null= $2.is_null;
+                    
+                    
+                    $$.rlist = new RList;
+                    RList *temp = $2.rlist;
+                    RList *temp_new = $$.rlist;
+                    while(temp!=NULL)
+                    {   
+                        temp_new->type = temp->type;
+                        temp_new->val_bool = temp->val_bool;
+                        temp_new->val_int = temp->val_int;
+                        temp_new->val_float = temp->val_float;
+                        strcpy(temp_new->val_string, temp->val_string);
+                        temp_new->length = temp->length;
+                        temp = temp->rlist;
+                        if(temp!=NULL)
+                            temp_new->rlist = new RList;
+                        else
+                            temp_new->rlist = NULL;
+                        temp_new = temp_new->rlist;
+                    }                    
                 }
                 | T_NOT N_FACTOR
                 {
@@ -1631,82 +2026,85 @@ N_FACTOR		: N_VAR
                     $$.numParams = $2.numParams;
                     $$.returnType = $2.returnType;
                     $$.isParam = $2.isParam;
+                    $$.val_bool = $2.val_bool?false:true;
+                    printf("The final answer %s\n, after NOT %s\n", $2.val_bool?"true":"false", $2.val_bool?"false":"true");
                 }
                 ;
 
 N_ADD_OP	     : T_ADD
                 {
                     printRule("ADD_OP", "+");
-                    $$ = ARITHMETIC_OP;
+                    $$ = ARITHMETIC_OP_ADD;
                 }
                 | T_SUB
                 {
                     printRule("ADD_OP", "-");
-                    $$ = ARITHMETIC_OP;
+                    $$ = ARITHMETIC_OP_SUB;
                 }
                 | T_OR
                 {
                     printRule("ADD_OP", "|");
-                    $$ = LOGICAL_OP;
+                    $$ = LOGICAL_OP_OR;
                 }
                 ;
 
 N_MULT_OP      : T_MULT
                 {
                     printRule("MULT_OP", "*");
-                    $$ = ARITHMETIC_OP;
+                    $$ = ARITHMETIC_OP_MUL;
+                    
                 }
                 | T_DIV
                 {
                     printRule("MULT_OP", "/");
-                    $$ = ARITHMETIC_OP;
+                    $$ = ARITHMETIC_OP_DIV;
                 }
                 | T_AND
                 {
                     printRule("MULT_OP", "&");
-                    $$ = LOGICAL_OP;
+                    $$ = LOGICAL_OP_AND;
                 }
                 | T_MOD
                 {
                     printRule("MULT_OP", "\%\%");
-                    $$ = ARITHMETIC_OP;
+                    $$ = ARITHMETIC_OP_MOD;
                 }
                 | T_POW
                 {
                     printRule("MULT_OP", "^");
-                    $$ = ARITHMETIC_OP;
+                    $$ = ARITHMETIC_OP_POW;
                 }
                 ;
 
 N_REL_OP        : T_LT
                 {
                     printRule("REL_OP", "<");
-                    $$ = RELATIONAL_OP;
+                    $$ = RELATIONAL_OP_LESS;
                 }
                 | T_GT
                 {
                     printRule("REL_OP", ">");
-                    $$ = RELATIONAL_OP;
+                    $$ = RELATIONAL_OP_GREATER;
                 }
                 | T_LE
                 {
                     printRule("REL_OP", "<=");
-                    $$ = RELATIONAL_OP;
+                    $$ = RELATIONAL_OP_LEQ;
                 }
                 | T_GE
                 {
                     printRule("REL_OP", ">=");
-                    $$ = RELATIONAL_OP;
+                    $$ = RELATIONAL_OP_GEQ;
                 }
                 | T_EQ
                 {
                     printRule("REL_OP", "==");
-                    $$ = RELATIONAL_OP;
+                    $$ = RELATIONAL_OP_EQL;
                 }
                 | T_NE
                 {
                     printRule("REL_OP", "!=");
-                    $$ = RELATIONAL_OP;
+                    $$ = RELATIONAL_OP_NEQ;
                 }
                 ;
 
@@ -1864,6 +2262,32 @@ bool isIntOrFloatOrBoolCompatible(const int theType)
     return(isIntCompatible(theType) ||
            isFloatCompatible(theType) ||
 		isBoolCompatible(theType)); 
+}
+
+bool isArithmetic(const int theType)
+{
+    return theType == ARITHMETIC_OP_ADD ||  
+        theType == ARITHMETIC_OP_SUB || 
+        theType == ARITHMETIC_OP_MUL ||
+        theType == ARITHMETIC_OP_DIV ||
+        theType == ARITHMETIC_OP_POW ||
+        theType == ARITHMETIC_OP_MOD;
+}
+
+bool isRelational(const int theType)
+{
+    return theType == RELATIONAL_OP_EQL ||
+        RELATIONAL_OP_NEQ ||
+        RELATIONAL_OP_LESS ||
+        RELATIONAL_OP_GREATER ||
+        RELATIONAL_OP_LEQ ||
+        RELATIONAL_OP_GEQ;
+}
+
+bool isLogical(const int theType)
+{
+    return theType == LOGICAL_OP_AND ||
+        theType == LOGICAL_OP_OR;
 }
 
 // Determine whether given type is compatible with INT.
