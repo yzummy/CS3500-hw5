@@ -1,4 +1,0 @@
-
----- Completed parsing ----					---- Completed parsing ----
-
-Value of the expression is: 8					Value of the expression is: 8

@@ -1,5 +1,0 @@
-"BoJack Horseman"						"BoJack Horseman"
-
----- Completed parsing ----					---- Completed parsing ----
-
-Value of the expression is: "BoJack Horseman"			Value of the expression is: "BoJack Horseman"

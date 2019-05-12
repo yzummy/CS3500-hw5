@@ -1,5 +1,0 @@
-987123								987123
-
----- Completed parsing ----					---- Completed parsing ----
-
-Value of the expression is: 987123				Value of the expression is: 987123

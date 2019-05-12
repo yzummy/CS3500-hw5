@@ -1,5 +1,0 @@
-( 1 2 3 )							( 1 2 3 )
-
----- Completed parsing ----					---- Completed parsing ----
-
-Value of the expression is: NULL				Value of the expression is: NULL

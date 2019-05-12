@@ -1,5 +1,0 @@
-"Enter an integer (e.g., 123): "				"Enter an integer (e.g., 123): "
-
----- Completed parsing ----					---- Completed parsing ----
-
-Value of the expression is: -2.71			      |	Value of the expression is: 123

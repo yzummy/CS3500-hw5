@@ -1,4 +1,0 @@
-
----- Completed parsing ----					---- Completed parsing ----
-
-Value of the expression is: "kitty cat"				Value of the expression is: "kitty cat"
